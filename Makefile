@@ -3,7 +3,7 @@ CXX     = g++
 CFLAGS  = -Wall -pedantic # -pedantic-errors # The unistd.h has some errors with pedantic, not our fault
 LDFLAGS =
 
-LIB        = elfshark
+LIB        = asmash
 SRCDIR     = src
 INCLUDEDIR = include
 PREFIX     = /usr/local
@@ -24,21 +24,21 @@ install:
 	mkdir -p $(PREFIX)/lib
 	mkdir -p $(PREFIX)/doc
 	mkdir -p $(PREFIX)/doc/$(LIB)-$(shell cat VERSION)
-	mkdir -p $(PREFIX)/$(INCLUDEDIR)/ElfShark
+	mkdir -p $(PREFIX)/$(INCLUDEDIR)/ASMash
 	install -m 0644 README  $(PREFIX)/doc/$(LIB)-$(shell cat VERSION)
 	install -m 0644 INSTALL $(PREFIX)/doc/$(LIB)-$(shell cat VERSION)
 	install -m 0644 VERSION $(PREFIX)/doc/$(LIB)-$(shell cat VERSION)
 	install -m 0644 LICENCE $(PREFIX)/doc/$(LIB)-$(shell cat VERSION)
-	install -m 0644 $(INCLUDEDIR)/* $(PREFIX)/include/ElfShark
+	install -m 0644 $(INCLUDEDIR)/* $(PREFIX)/include/ASMash
 	install -m 0644 lib$(LIB).a $(PREFIX)/lib
 	install -m 0755 lib$(LIB).so.0.0.0 $(PREFIX)/lib
 	ln -sf $(PREFIX)/lib/lib$(LIB).so.0.0.0 $(PREFIX)/lib/lib$(LIB).so.0
 	ldconfig
 
 clean:
-	rm *.o
-	rm lib$(LIB).a
-	rm lib$(LIB).so.*
+	find src | egrep "\.l?o$$" | xargs rm -f
+	rm -f lib$(LIB).a
+	rm -f lib$(LIB).so.*
 
 uninstall:
 	rm $(PREFIX)/include/elfshark.h

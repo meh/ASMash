@@ -1,22 +1,22 @@
 /**
  * The files in this directory and elsewhere which refer to this LICENCE
- * file are part of ASMash, the library for disassembling/assembling
+ * file are part of ElfShark, the library for disassembling/assembling
  * binary code.
  *
  * Copyright (C) 2009 BlackLight and meh.
  *
- * ASMash is free software; you can redistribute it and/or modify it under
+ * ElfShark is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 3 or (at your option) any later 
  * version.
  *
- * ASMash is distributed in the hope that it will be useful, but WITHOUT
+ * ElfShark is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with ASMash; if not, write to the Free Software Foundation, Inc.,
+ * with ElfShark; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  *
  * As a special exception, if other files instantiate templates or use
@@ -31,9 +31,25 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_API_H
-#define __ASMASH_API_H
+#ifndef	__ASMASH_H
+#define	__ASMASH_H
 
-#include "asmash.h"
+typedef unsigned char AAOptions;
+
+#define	AA_INTEL_FLAVOR	    0x01
+#define	AA_AT_FLAVOR		0x02
+
+#define AA_IS_INTEL(flags) ((flags & AA_INTEL_FLAVOUR) == AA_INTEL_FLAVOUR)
+#define AA_IS_AT(flags)    ((flags & AA_AT_FLAVOUR) == AA_AT_FLAVOUR)
+
+#define	AA_DISP_BINARY	    0x04
+#define	AA_BITS_16		    0x08
+#define	AA_BITS_8		    0x10
+
+#include "Code.h"
+
+unsigned char* AA_GetExecutableElfCode (char* fileName, int* codeSize, int* addr);
+char* AA_DecodeToAsm (AACode* code, unsigned char code[], unsigned int len, unsigned int initAddr, AAFlags opts);
 
 #endif
+

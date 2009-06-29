@@ -20,5 +20,5 @@ All I suggest you to use now is decode_to_asm() function, that will get 4 parame
 Once installed, you can compile your source using ASMash by adding -lelfshark to your command
 line or by explicitly adding the library file to your linker options.
 
-by BlackLight <blacklight@0x00.ath.cx>
+by BlackLight <blacklight@0x00.ath.cx> and meh. <meh.ffff@gmail.com> [http://meh.doesntexist.org]
 

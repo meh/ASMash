@@ -1,22 +1,22 @@
 /**
  * The files in this directory and elsewhere which refer to this LICENCE
- * file are part of ElfShark, the library for disassembling/assembling
+ * file are part of ASMash, the library for disassembling/assembling
  * binary code.
  *
- * Copyright (C) 2009 BlackLight and meh. [http://meh.doesntexist.org]
+ * Copyright (C) 2009 BlackLight and meh.
  *
- * ElfShark is free software; you can redistribute it and/or modify it under
+ * ASMash is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 3 or (at your option) any later 
  * version.
  *
- * ElfShark is distributed in the hope that it will be useful, but WITHOUT
+ * ASMash is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with ElfShark; if not, write to the Free Software Foundation, Inc.,
+ * with ASMash; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  *
  * As a special exception, if other files instantiate templates or use
@@ -31,23 +31,21 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef	__ELFSHARK_H
-#define	__ELFSHARK_H
+#ifndef __ASMASH_CODE_H
+#define __ASMASH_CODE_H
 
-#define	ES_INTEL_FLAVOR	    0x01
-#define	ES_AT_FLAVOR		0x02
+#include "asmash.h"
 
-#define ES_IS_INTEL(flags) ((flags & ES_INTEL_FLAVOUR) == ES_INTEL_FLAVOUR)
-#define ES_IS_AT(flags)    ((flags & ES_AT_FLAVOUR) == ES_AT_FLAVOUR)
+#define	AA_DECODE_LINESIZE  0xff
 
-#define	ES_DISP_BINARY	    0x04
-#define	ES_BITS_16		    0x08
-#define	ES_BITS_8		    0x10
+AACode* AA_NewCode (const char* code, unsigned int length);
 
-#include "Code.h"
+AACode* AA_NewCodeFromFile (const char* path);
 
-unsigned char* ES_GetExecutableElfCode (char* fileName, int* codeSize, int* addr);
-char* ES_DecodeToAsm (ESCode* code, unsigned char code[], unsigned int len, unsigned int initAddr, ESFlags opts);
+AACode* AA_CodeToASM (AACode* code, unsigned int initAddr, AAOptions flags);
+
+#define AA_GetCodeLength(code) (code->length)
+
+#define AA_GetCodeByte(code, i) (byte->data[i])
 
 #endif
-
