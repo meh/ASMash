@@ -43,13 +43,16 @@ typedef unsigned char AAOptions;
 #define AA_IS_AT(flags)    ((flags & AA_AT_FLAVOUR) == AA_AT_FLAVOUR)
 
 #define	AA_DISP_BINARY	    0x04
-#define	AA_BITS_16		    0x08
-#define	AA_BITS_8		    0x10
+
+#define	AA_BITS_8		    0x08
+#define	AA_BITS_16		    0x10
+#define AA_BITS_32          0x20
+
+#define AA_IS_8BIT(flags)  ((flags & AA_BITS_8) == AA_BITS_8)
+#define AA_IS_16BIT(flags) ((flags & AA_BITS_16) == AA_BITS_16)
+#define AA_IS_32BIT(flags) ((flags & AA_BITS_32) == AA_BITS_32)
 
 #include "Code.h"
-
-unsigned char* AA_GetExecutableElfCode (char* fileName, int* codeSize, int* addr);
-char* AA_DecodeToAsm (AACode* code, unsigned char code[], unsigned int len, unsigned int initAddr, AAFlags opts);
 
 #endif
 

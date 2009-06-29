@@ -78,7 +78,7 @@ void aa_CodeGet_DstReg8   (u8 code, char* dstreg, u8 len, AAOptions flags);
 void aa_CodeGet_DstrReg16 (u8 code, char* dstreg, u8 len, AAOptions flags);
 
 void aa_Code_Unknown (const unsigned char* code, unsigned int len, char buf[], u8 buflen, AAOptions flags);
-void aa_Code_SingleOp (u8 code, char buf[], u8 buflen, AAOptions flags);
+void aa_Code_SingleOp (u8 code, char buf[], u8 buflen, AAOptions flrc/.Code.c.swpgs);
 void aa_Code_Op_IncDec (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
 
 int aa_Code_Interrupt (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
