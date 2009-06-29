@@ -1,9 +1,44 @@
+/**
+ * The files in this directory and elsewhere which refer to this LICENCE
+ * file are part of ElfShark, the library for disassembling/assembling
+ * binary code.
+ *
+ * Copyright (C) 2009 BlackLight and meh. [http://meh.doesntexist.org]
+ *
+ * ElfShark is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 3 or (at your option) any later 
+ * version.
+ *
+ * ElfShark is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with ElfShark; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+ *
+ * As a special exception, if other files instantiate templates or use
+ * macros or inline functions from these files, or you compile these
+ * files and link them with other works to produce a work based on these
+ * files, these files do not by themselves cause the resulting work to be
+ * covered by the GNU General Public License. However the source code for
+ * these files must still be made available in accordance with section (3)
+ * of the GNU General Public License.
+ *
+ * This exception does not invalidate any other reasons why a work based on
+ * this file might be covered by the GNU General Public License.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
 
 #include "elfshark.h"
+#include "elfshark_private.h"
+
 #define	LINESIZE		0xff
 
 char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
@@ -35,7 +70,7 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 			case 0xa3:
 				increment = 1;
 
-				if ((code[i+1] & 0x07) == ESP) increment++;
+				if ((code[i+1] & 0x07) == ES_ESP) increment++;
 				if ((code[i+1] & 0xc0) >> 6 == 0x1) increment++;
 				
 				if ((code[i+1] & 0xc0) >> 6 == 0x10)  {
@@ -67,7 +102,7 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 					case 0x85:
 						op_reg32 ("test", code+i, increment+1, line, LINESIZE, opts); break;
 					case 0x86:
-						op_reg32 ("xchg", code+i, increment+1, line, LINESIZE, opts|BITS_8); break;
+						op_reg32 ("xchg", code+i, increment+1, line, LINESIZE, opts|ES_BITS_8); break;
 					case 0x87:
 						op_reg32 ("xchg", code+i, increment+1, line, LINESIZE, opts); break;
 					case 0x89:
@@ -92,7 +127,7 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 			case 0x8b:
 				increment = 1;
 
-				if ((code[i+1] & 0x07) == ESP) increment++;
+				if ((code[i+1] & 0x07) == ES_ESP) increment++;
 				if ((code[i+1] & 0xc0) >> 6 == 0x1) increment++;
 				
 				if ((code[i+1] & 0xc0) >> 6 == 0x10)  {
@@ -195,15 +230,15 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 					increment = 1;
 
 					( ((code[i+1] & 0x4) >> 3) == 0x0 )
-						? op_pushpop ("push", code+i+1, increment+1, line, LINESIZE, opts|BITS_16)
-						: op_pushpop ("pop" , code+i+1, increment+1, line, LINESIZE, opts|BITS_16);
+						? op_pushpop ("push", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16)
+						: op_pushpop ("pop" , code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16);
 
 					break;
 				}
 
 				increment = 2;
 
-				if ((code[i+2] & 0x07) == ESP) increment++;
+				if ((code[i+2] & 0x07) == ES_ESP) increment++;
 				if ((code[i+2] & 0xc0) >> 6 == 0x1) increment++;
 				
 				if ((code[i+2] & 0xc0) >> 6 == 0x10)  {
@@ -216,21 +251,21 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 
 				switch (code[i+1])  {
 					case 0x01:
-						op_reg32 ("add", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("add", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x09:
-						op_reg32 ("or",  code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("or",  code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x11:
-						op_reg32 ("adc", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("adc", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x19:
-						op_reg32 ("sbb", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("sbb", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x21:
-						op_reg32 ("and", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("and", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x29:
-						op_reg32 ("sub", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("sub", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x31:
-						op_reg32 ("xor", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("xor", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x39:
-						op_reg32 ("cmp", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("cmp", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 
 					case 0x40:
 					case 0x41:
@@ -249,34 +284,34 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 					case 0x4e:
 					case 0x4f:
 						increment = 1;
-						op_incdec (code+i, increment+1, line, LINESIZE, opts|BITS_16);
+						op_incdec (code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						break;
 
 					case 0x85:
-						op_reg32 ("test", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("test", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x87:
-						op_reg32 ("xchg", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("xchg", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x89:
-						op_reg32 ("mov", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32 ("mov", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					
 					case 0x03:
-						op_reg32_inv ("add", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("add", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x0b:
-						op_reg32_inv ("or",  code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("or",  code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x13:
-						op_reg32_inv ("adc", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("adc", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x1b:
-						op_reg32_inv ("sbb", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("sbb", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x23:
-						op_reg32_inv ("and", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("and", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x2b:
-						op_reg32_inv ("sub", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("sub", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x33:
-						op_reg32_inv ("xor", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("xor", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x3b:
-						op_reg32_inv ("cmp", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("cmp", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x8b:
-						op_reg32_inv ("mov", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+						op_reg32_inv ("mov", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 					case 0x8d:
 					case 0xc4:
 					case 0xc5:
@@ -290,11 +325,11 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 
 						switch (code[i+1])  {
 							case 0x8d:
-								op_lea32 ("lea", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+								op_lea32 ("lea", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 							case 0xc4:
-								op_lea32 ("les", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+								op_lea32 ("les", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 							case 0xc5:
-								op_lea32 ("lds", code+i+1, increment+1, line, LINESIZE, opts|BITS_16); break;
+								op_lea32 ("lds", code+i+1, increment+1, line, LINESIZE, opts|ES_BITS_16); break;
 						}
 
 						break;
@@ -312,7 +347,7 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 						else
 							increment = 1;
 
-						op_inout (code+i, increment+1, line, LINESIZE, opts|BITS_16);
+						op_inout (code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						break;
 
 					case 0xf6:
@@ -320,17 +355,17 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 						increment = 2;
 
 						if (code[i+2] >= 0xd0 && code[i+2] <= 0xd7)
-							op_notneg ("not", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+							op_notneg ("not", code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						else if (code[i+2] >= 0xd8 && code[i+2] <= 0xdf)
-							op_notneg ("neg", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+							op_notneg ("neg", code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						else if (code[i+2] >= 0xe0 && code[i+2] <= 0xe7)
-							op_muldiv ("mul", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+							op_muldiv ("mul", code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						else if (code[i+2] >= 0xe8 && code[i+2] <= 0xef)
-							op_muldiv ("imul", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+							op_muldiv ("imul", code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						else if (code[i+2] >= 0xf0 && code[i+2] <= 0xf7)
-							op_muldiv ("div", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+							op_muldiv ("div", code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						else if (code[i+2] >= 0xf8)
-							op_muldiv ("idiv", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+							op_muldiv ("idiv", code+i, increment+1, line, LINESIZE, opts|ES_BITS_16);
 						break;
 				}
 		
@@ -606,7 +641,7 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 				increment = 1;
 
 				if ((code[i+1] & 0xc0) == 0xc0)
-					op_incdec (code+i, increment+1, line, LINESIZE, opts|BITS_8);
+					op_incdec (code+i, increment+1, line, LINESIZE, opts|ES_BITS_8);
 				break;
 
 			case 0x8d:
@@ -660,17 +695,17 @@ char* decode_to_asm (u8 code[], u32 len, u32 init_addr, u8 opts)  {
 				increment = 1;
 
 				if (code[i+1] >= 0xd0 && code[i+1] <= 0xd7)
-					op_notneg ("not", code+i, increment+1, line, LINESIZE, (code[i] == 0xf6) ? opts|BITS_8 : opts);
+					op_notneg("not", code+i, increment+1, line, LINESIZE, (code[i] == 0xf6) ? opts | ES_BITS_8 : opts);
 				else if (code[i+1] >= 0xd8 && code[i+1] <= 0xdf)
-					op_notneg ("neg", code+i, increment+1, line, LINESIZE, (code[i] == 0xf6) ? opts|BITS_8 : opts);
+					op_notneg("neg", code+i, increment+1, line, LINESIZE, (code[i] == 0xf6) ? opts | ES_BITS_8 : opts);
 				else if (code[i+1] >= 0xe0 && code[i+1] <= 0xe7)
-					op_muldiv ("mul", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+					op_muldiv("mul", code+i, increment+1, line, LINESIZE, opts | ES_BITS_16);
 				else if (code[i+1] >= 0xe8 && code[i+1] <= 0xef)
-					op_muldiv ("imul", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+					op_muldiv("imul", code+i, increment+1, line, LINESIZE, opts | ES_BITS_16);
 				else if (code[i+1] >= 0xf0 && code[i+1] <= 0xf7)
-					op_muldiv ("div", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+					op_muldiv("div", code+i, increment+1, line, LINESIZE, opts | ES_BITS_16);
 				else if (code[i+1] >= 0xf8)
-					op_muldiv ("idiv", code+i, increment+1, line, LINESIZE, opts|BITS_16);
+					op_muldiv("idiv", code+i, increment+1, line, LINESIZE, opts | ES_BITS_16);
 				break;
 
 			case 0xc1:

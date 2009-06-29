@@ -31,23 +31,9 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef	__ELFSHARK_H
-#define	__ELFSHARK_H
+#ifndef __ELFSHARK_API_H
+#define __ELFSHARK_API_H
 
-#define	ES_INTEL_FLAVOR	    0x01
-#define	ES_AT_FLAVOR		0x02
-
-#define ES_IS_INTEL(flags) ((flags & ES_INTEL_FLAVOUR) == ES_INTEL_FLAVOUR)
-#define ES_IS_AT(flags)    ((flags & ES_AT_FLAVOUR) == ES_AT_FLAVOUR)
-
-#define	ES_DISP_BINARY	    0x04
-#define	ES_BITS_16		    0x08
-#define	ES_BITS_8		    0x10
-
-#include "Code.h"
-
-unsigned char* ES_GetExecutableElfCode (char* fileName, int* codeSize, int* addr);
-char* ES_DecodeToAsm (ESCode* code, unsigned char code[], unsigned int len, unsigned int initAddr, ESFlags opts);
+#include "elfshark.h"
 
 #endif
-
