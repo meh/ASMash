@@ -34,6 +34,11 @@
 #ifndef	__ASMASH_H
 #define	__ASMASH_H
 
+typedef enum {
+    AAFalse = 0,
+    AATrue  = 1
+} AABool;
+
 typedef unsigned char AAOptions;
 
 #define	AA_INTEL_FLAVOR	    0x01

@@ -32,13 +32,14 @@
  */
 
 #include "Instruction.h"
+#include "private/Instruction.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 AAInstruction*
-AA_NewInstruction (const char* name, unsigned int opcode, AAInstructionOperand* source, AAInstructionOperand* dest)
+AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest)
 {
     AAInstruction* result = (AAInstruction*) malloc(sizeof(AAInstruction));
 
@@ -48,16 +49,11 @@ AA_NewInstruction (const char* name, unsigned int opcode, AAInstructionOperand* 
 
     strncpy(result->name, name, 16);
     result->opcode = opcode;
+    result->offset = offset;
     result->source = source;
     result->dest   = dest;
 
     return result;
-}
-
-AAInstruction*
-AA_ParseInstruction (const char* bytecode, unsigned int* offset)
-{
-    return NULL;
 }
 
 void
@@ -71,4 +67,40 @@ AA_DestroyInstruction (AAInstruction* instruction)
 
     free(instruction);
 }
+
+AAInstruction*
+AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset)
+{
+    AAInstruction*  result    = (AAInstruction*) malloc(sizeof(AAInstruction));
+    unsigned int    increment = 0;
+
+    switch (AA_GetBytecodeByte(bytecode, 0)) {
+        case 0x01:
+        case 0x09:
+        case 0x11:
+        case 0x19:
+        case 0x21:
+        case 0x25:
+        case 0x29:
+        case 0x31:
+        case 0x39:
+        case 0x85:
+        case 0x86:
+        case 0x87:
+        case 0x89:
+        case 0xa1:
+        case 0xa3:
+            increment = 1;
+
+            if ((code[i+1] & 0x07)      == aaESP) increment++;
+            if ((code[i+1] & 0xc0) >> 6 == 0x01)  increment++;
+
+            if ((code[i+1] & 0xc0) >> 6 == 0x10) {
+                result->name[0] = '\0';
+            }
+        break;
+
+    }
+}
+
 

@@ -46,7 +46,7 @@ AABytecode* AA_NewBytecode (const char* code, unsigned int length);
 
 AABytecode* AA_NewBytecodeFromFile (const char* path);
 
-AAInstructionList* AA_BytecodeToInstruction (AABytecode* bytecode);
+AAInstructionList* AA_BytecodeToInstructionList (AABytecode* bytecode);
 
 #define AA_GetBytecodeLength(code) (code->length)
 

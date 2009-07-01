@@ -31,32 +31,28 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#ifndef __ASMASH_INSTRUCTIONSTREAM_H
+#define __ASMASH_INSTRUCTIONSTREAM_H
 
-#include "InstructionOperand.h"
+#include "Instruction.h"
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+typedef struct _AAInstructionStream {
+    AABytecode*  bytecode;
+    unsigned int instructions;
 
-typedef struct _AAInstruction {
-    char                  name[16];
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+    unsigned int _offset;
+} AAInstructionStream;
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+AAInstructionStream* AA_NewInstructionStream (const char* bytecode);
 
-void AA_DestroyInstruction (AAInstruction* instruction);
+void AA_DestroyInstructionStream (AAInstructionStream* stream);
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
+#define AA_GetInstructionStreamBytecode(stream) (stream->bytecode)
 
-#define AA_GetInstructionName(instruction) (instruction->name)
+#define AA_GetInstructionStreamParsedInstructions (stream->instructions);
 
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
+AAInstruction* AA_NextInstruction (AAInstructionStream* stream);
 
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
+AABool AA_ProcessInstructionStream (AAInstructionStream* stream, AABool (*callback)(AAInstruction*)); 
 
 #endif

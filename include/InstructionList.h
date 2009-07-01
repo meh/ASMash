@@ -41,10 +41,11 @@ typedef struct _AAInstructionList {
     unsigned int    length;
 } AAInstructionList;
 
-AAInstructionList*
-AA_NewInstructionList (AAInstruction** item, unsigned int length);
+AAInstructionList* AA_NewInstructionList (AAInstruction** item, unsigned int length);
 
 void AA_DestroyInstructionList (AAInstructionList* list);
+
+AAInstructionList* AA_ParseInstructionList (AABytecode* bytecode);
 
 void AA_AddInstruction (AAInstructionList* list, AAInstruction* item);
 
