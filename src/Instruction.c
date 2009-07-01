@@ -31,21 +31,44 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_CODE_H
-#define __ASMASH_CODE_H
+#include "Instruction.h"
 
-#include "asmash.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define	AA_DECODE_LINESIZE  0xff
+AAInstruction*
+AA_NewInstruction (const char* name, unsigned int opcode, AAInstructionOperand* source, AAInstructionOperand* dest)
+{
+    AAInstruction* result = (AAInstruction*) malloc(sizeof(AAInstruction));
 
-AACode* AA_NewCode (const char* code, unsigned int length);
+    if (name == NULL || strlen(name) == 0 || source == NULL) {
+        return NULL;
+    }
 
-AACode* AA_NewCodeFromFile (const char* path);
+    strncpy(result->name, name, 16);
+    result->opcode = opcode;
+    result->source = source;
+    result->dest   = dest;
 
-AACode* AA_CodeToASM (AACode* code, unsigned int initAddr, AAOptions flags);
+    return result;
+}
 
-#define AA_GetCodeLength(code) (code->length)
+AAInstruction*
+AA_ParseInstruction (const char* bytecode, unsigned int* offset)
+{
+    return NULL;
+}
 
-#define AA_GetCodeByte(code, i) (byte->data[i])
+void
+AA_DestroyInstruction (AAInstruction* instruction)
+{
+    AA_DestroyInstructionOperand(instruction->source)
 
-#endif
+    if (instruction->dest) {
+        AA_DestroyInstructionOperand(instruction->dest);
+    }
+
+    free(instruction);
+}
+

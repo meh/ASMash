@@ -32,27 +32,32 @@
  */
 
 #include "asmash.h"
-#include "private/asmash.h"
+#include "Bytecode.h"
+#include "private/Bytecode.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <memory.h>
 
-AACode*
-AA_NewCode (const char* code, unsigned int length)
+AABytecode*
+AA_NewBytecode (const char* code, unsigned int length)
 {
-    return NULL;
+    AABytecode* result = (AABytecode*) malloc(sizeof(AABytecode));
+    result->data       = code;
+    result->length     = length;
+
+    return result;
 }
 
-AACode*
-AA_NewCodeFromFile (const char* path)
+AABytecode*
+AA_NewBytecodeFromFile (const char* path)
 {
     return NULL;
 }
 
 char*
-AA_CodeToASM (AACode* code, unsigned int initAddr, AAOptions flags)
+AA_BytecodeToASM (AABytecode* code, unsigned int initAddr, AAOptions flags)
 {
     unsigned int i;
     unsigned int increment    = 0
@@ -64,11 +69,11 @@ AA_CodeToASM (AACode* code, unsigned int initAddr, AAOptions flags)
         initAddr = 0x08048000;
     }
 
-    for (i = 0; i < AA_GetCodeLength(code); i++) {
+    for (i = 0; i < AA_GetBytecodeLength(code); i++) {
         increment = 0;
         memset(line, 0, AA_DECODE_LINESIZE);
 
-        switch (AA_GetCodeByte(code, i)) {
+        switch (AA_GetBytecodeByte(code, i)) {
             case 0x01:
             case 0x09:
             case 0x11:
@@ -90,7 +95,7 @@ AA_CodeToASM (AACode* code, unsigned int initAddr, AAOptions flags)
                 if ((code[i+1] & 0xc0) >> 6 == 0x01)   increment++;
                 
                 if ((code[i+1] & 0xc0) >> 6 == 0x10) {
-                    aa_Code_Unknown(&(code[i]), 1, line, AA_DECODE_LINESIZE, flags);
+                    aa_Bytecode_Unknown(&(code[i]), 1, line, AA_DECODE_LINESIZE, flags);
                     bufferLength += strlen(line);
                     buffer        = (char*) realloc(buffer, bufferLenght);
                     sprintf(buffer, "%s%s", buffer, line);
@@ -761,7 +766,7 @@ AA_CodeToASM (AACode* code, unsigned int initAddr, AAOptions flags)
 }
 
 void
-aa_Code_GetSourceRegister (unsigned char code, char* sourceRegister, unsigned int length, AAOptions flags)
+aa_Bytecode_GetSourceRegister (unsigned char code, char* sourceRegister, unsigned int length, AAOptions flags)
 {
     if (AA_IS_8BITS(bits)) {
         switch ((code & 0x38) >> 3)  {
@@ -1119,7 +1124,7 @@ int op_inout (u8 code[], u8 len, char buf[], u8 buflen, u8 opts)  {
     return 0;
 }
 
-void aa_Code_Unknown (u8 code[], u8 len, char buf[], u8 buflen, u8 opts)  {
+void aa_Bytecode_Unknown (u8 code[], u8 len, char buf[], u8 buflen, u8 opts)  {
     int i;
     memset(buf, 0, buflen);
 

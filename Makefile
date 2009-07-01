@@ -1,20 +1,12 @@
-<<<<<<< HEAD:Makefile
 CC      = gcc
 CXX     = g++
 CFLAGS  = -Wall -pedantic # -pedantic-errors # The unistd.h has some errors with pedantic, not our fault
 LDFLAGS =
-=======
-SRCDIR=src
-INCLUDEDIR=include
-PREFIX=/usr/local
-LIB=elfshark
-OPTS=-Wall -pedantic
->>>>>>> 2aed15efa27787546d12639133e17078bcd55f8a:Makefile
 
 LIB        = asmash
 SRCDIR     = src
 INCLUDEDIR = include
-PREFIX     = /usr/local
+PREFIX     = /usr
 FILES      = ${SRCDIR}/decode.o ${SRCDIR}/elf.o ${SRCDIR}/op_bits8.o ${SRCDIR}/op_jmp.o ${SRCDIR}/op_pushpop.o ${SRCDIR}/op_reg32.o ${SRCDIR}/op_scal32.o ${SRCDIR}/op_scal81.o ${SRCDIR}/single.o ${SRCDIR}/utils.o
 
 ifeq (${DEBUG}, 1)

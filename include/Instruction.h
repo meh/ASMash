@@ -1,22 +1,22 @@
 /**
  * The files in this directory and elsewhere which refer to this LICENCE
- * file are part of ElfShark, the library for disassembling/assembling
+ * file are part of ASMash, the library for disassembling/assembling
  * binary code.
  *
  * Copyright (C) 2009 BlackLight and meh.
  *
- * ElfShark is free software; you can redistribute it and/or modify it under
+ * ASMash is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
  * Software Foundation; either version 3 or (at your option) any later 
  * version.
  *
- * ElfShark is distributed in the hope that it will be useful, but WITHOUT
+ * ASMash is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
  * for more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with ElfShark; if not, write to the Free Software Foundation, Inc.,
+ * with ASMash; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
  *
  * As a special exception, if other files instantiate templates or use
@@ -31,30 +31,31 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef	__ASMASH_H
-#define	__ASMASH_H
+#ifndef __ASMASH_INSTRUCTION_H
+#define __ASMASH_INSTRUCTION_H
 
-typedef unsigned char AAOptions;
+#include "InstructionOperand.h"
 
-#define	AA_INTEL_FLAVOR	    0x01
-#define	AA_AT_FLAVOR		0x02
+#define AA_INSTRUCTION_SOURCE 0x01
+#define AA_INSTRUCTION_DEST   0x02
 
-#define AA_IS_INTEL(flags) ((flags & AA_INTEL_FLAVOUR) == AA_INTEL_FLAVOUR)
-#define AA_IS_AT(flags)    ((flags & AA_AT_FLAVOUR) == AA_AT_FLAVOUR)
+typedef struct _AAInstruction {
+    char                  name[16];
+    unsigned int          opcode;
+    AAInstructionOperand* source;
+    AAInstructionOperand* dest;
+} AAInstruction;
 
-#define	AA_DISP_BINARY	    0x04
+AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, AAInstructionOperand* source, AAInstructionOperand* dest);
 
-#define	AA_BITS_8		    0x08
-#define	AA_BITS_16		    0x10
-#define AA_BITS_32          0x20
-#define AA_BITS_64          0x40
+AAInstruction* AA_ParseInstruction (const char* bytecode, unsigned int* offset);
 
-#define AA_IS_8BIT(flags)  ((flags & AA_BITS_8)  == AA_BITS_8)
-#define AA_IS_16BIT(flags) ((flags & AA_BITS_16) == AA_BITS_16)
-#define AA_IS_32BIT(flags) ((flags & AA_BITS_32) == AA_BITS_32)
-#define AA_IS_64BIT(flags) ((flags & AA_BITS_64) == AA_BITS_64)
+void AA_DestroyInstruction (AAInstruction* instruction);
 
-#include "Bytecode.h"
+#define AA_GetInstructionName(instruction) (instruction->name)
+
+#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
+
+#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
 
 #endif
-

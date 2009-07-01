@@ -31,8 +31,8 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_PRIVATE_CODE_H
-#define __ASMASH_PRIVATE_CODE_H
+#ifndef __ASMASH_PRIVATE_BYTECODE_H
+#define __ASMASH_PRIVATE_BYTECODE_H
 
 #include "asmash.h"
 
@@ -69,21 +69,21 @@ typedef unsigned char  u8;
 typedef unsigned short u16;
 typedef unsigned int   u32;
 
-void aa_CodeGet_SrcReg   (u8 code, char* srcreg, u8 len, AAOptions flags);
-void aa_CodeGet_SrcReg8  (u8 code, char* srcreg, u8 len, AAOptions flags);
-void aa_CodeGet_SrcReg16 (u8 code, char* srcreg, u8 len, AAOptions flags);
+void aa_BytecodeGet_SrcReg   (u8 code, char* srcreg, u8 len, AAOptions flags);
+void aa_BytecodeGet_SrcReg8  (u8 code, char* srcreg, u8 len, AAOptions flags);
+void aa_BytecodeGet_SrcReg16 (u8 code, char* srcreg, u8 len, AAOptions flags);
 
-void aa_CodeGet_DstReg    (u8 code, char* dstreg, u8 len, AAOptions flags);
-void aa_CodeGet_DstReg8   (u8 code, char* dstreg, u8 len, AAOptions flags);
-void aa_CodeGet_DstrReg16 (u8 code, char* dstreg, u8 len, AAOptions flags);
+void aa_BytecodeGet_DstReg    (u8 code, char* dstreg, u8 len, AAOptions flags);
+void aa_BytecodeGet_DstReg8   (u8 code, char* dstreg, u8 len, AAOptions flags);
+void aa_BytecodeGet_DstrReg16 (u8 code, char* dstreg, u8 len, AAOptions flags);
 
-void aa_Code_Unknown (const u8* code, u32 length, char buf[], u8 buflen, AAOptions flags);
-void aa_Code_SingleOp (u8 code, char buf[], u8 buflen, AAOptions flrc/.Code.c.swpgs);
-void aa_Code_Op_IncDec (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
+void aa_Bytecode_Unknown (const u8* code, u32 length, char buf[], u8 buflen, AAOptions flags);
+void aa_Bytecode_SingleOp (u8 code, char buf[], u8 buflen, AAOptions flrc/.Bytecode.c.swpgs);
+void aa_Bytecode_Op_IncDec (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
 
-int aa_Code_Interrupt (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
-int aa_Code_Op_Reg32 (char *op, u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
-int aa_Code_Op_scal32 (char *op, u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
+int aa_Bytecode_Interrupt (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
+int aa_Bytecode_Op_Reg32 (char *op, u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
+int aa_Bytecode_Op_scal32 (char *op, u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
 int aa_op_reg32_inv (char* op, u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
 int aa_op_scal81 (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
 int aa_op_scal83 (u8 code[], u8 len, char buf[], u8 buflen, AAOptions flags);
