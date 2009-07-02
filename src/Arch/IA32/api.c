@@ -32,20 +32,26 @@
  */
 
 #include "Arch/IA32/api.h"
+#include "Arch/Arch.h"
+#include "Arch/ArchList.h"
 
-AAArch* AAArchIA32;
+#include <stdlib.h>
 
-AA_AddArch(AAArchs, (AAArchIA32 = AA_NewArch("IA32", AA_IA32_BytecodeToInstruction, AA_IA32_InstructionToBytecode)));
+void
+AA_IA32_Init (AAArchList* list)
+{
+    AA_AddArch(list, AA_NewArch("IA32", AA_IA32_BytecodeToInstruction, AA_IA32_InstructionToBytecode));
+}
 
 AAInstruction*
 AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset)
 {
-
+    return NULL;
 }
 
 AABytecode*
 AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset)
 {
-
+    return NULL;
 }
 

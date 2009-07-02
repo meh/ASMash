@@ -31,9 +31,17 @@
  * this file might be covered by the GNU General Public License.
  */
 
-extern AAArchList* AAArchs;
-extern AAArch* AAArchIA32;
+#ifndef __ASMASH_ARCH_IA32_H
+#define __ASMASH_ARCH_IA32_H
+
+#include "Instruction.h"
+#include "Bytecode.h"
+#include "Arch/ArchList.h"
+
+void AA_IA32_Init (AAArchList* list);
 
 AAInstruction* AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset);
 
 AABytecode* AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset);
+
+#endif

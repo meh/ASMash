@@ -31,19 +31,38 @@
  * this file might be covered by the GNU General Public License.
  */
 
+#include "types.h"
 #include "Arch/api.h"
+
+#include "Arch/IA32/api.h"
 
 #include <string.h>
 
-AAArchList* AAArchs = AA_NewArchList(0, 0);
+static AABool inited = AAFalse;
+
+const AAArch AAArchs[] = {
+    { "IA32", AA_IA32_Init }
+}
+
+void
+AA_ArchInit (void)
+{
+    AA_IA32_Init(AAArchs);
+}
 
 AAInstruction*
 AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
 {
     unsigned int i;
+
+    if (!inited) {
+        AA_ArchInit();
+        inited = AATrue;
+    }
+
     for (i = 0; i < AAArchs->length; i++) {
         if (strcmp(AAArchs->item[i]->name, arch)) {
-            return AAArchs[i]->callbackBtI(bytecode, offset);
+            return AAArchs->item[i]->callbackBtI(bytecode, offset);
         }
     }
 
@@ -54,9 +73,15 @@ AABytecode*
 AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, unsigned int* offset)
 {
     unsigned int i;
+
+    if (!inited) {
+        AA_ArchInit();
+        inited = AATrue;
+    }
+
     for (i = 0; i < AAArchs->length; i++) {
         if (strcmp(AAArchs->item[i]->name, arch)) {
-            return AAArchs[i]->callbackItB(instruction, offset);
+            return AAArchs->item[i]->callbackItB(instruction, offset);
         }
     }
 

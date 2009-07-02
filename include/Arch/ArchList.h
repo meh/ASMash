@@ -34,6 +34,8 @@
 #ifndef __ASMASH_ARCH_ARCHLIST_H
 #define __ASMASH_ARCH_ARCHLIST_H
 
+#include "Arch/Arch.h"
+
 typedef struct _AAArchList {
     AAArch**     item;
     unsigned int length;
