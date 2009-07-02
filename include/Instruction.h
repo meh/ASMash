@@ -52,7 +52,7 @@ AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigne
 
 void AA_DestroyInstruction (AAInstruction* instruction);
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
+AAInstruction* AA_ParseInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset);
 
 #define AA_GetInstructionName(instruction) (instruction->name)
 

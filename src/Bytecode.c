@@ -32,7 +32,6 @@
  */
 
 #include "Bytecode.h"
-#include "private/Bytecode.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +39,7 @@
 #include <memory.h>
 
 AABytecode*
-AA_NewBytecode (const char* code, unsigned int length)
+AA_NewBytecode (unsigned char* code, unsigned int length)
 {
     AABytecode* result = (AABytecode*) malloc(sizeof(AABytecode));
     result->data       = code;
@@ -53,5 +52,13 @@ AABytecode*
 AA_NewBytecodeFromFile (const char* path)
 {
     return NULL;
+}
+
+void
+AA_DestroyBytecode (AABytecode* bytecode)
+{
+    free(bytecode->data);
+
+    free(bytecode);
 }
 

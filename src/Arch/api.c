@@ -33,14 +33,16 @@
 
 #include "Arch/api.h"
 
-AAArchList* AAArchs = AA_NewArchList(NULL, 0);
+#include <string.h>
+
+AAArchList* AAArchs = AA_NewArchList(0, 0);
 
 AAInstruction*
 AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
 {
     unsigned int i;
-    for (i = 0; i < AAArchs.length; i++) {
-        if (strcmp(AAArchs.item[i]->name, arch)) {
+    for (i = 0; i < AAArchs->length; i++) {
+        if (strcmp(AAArchs->item[i]->name, arch)) {
             return AAArchs[i]->callbackBtI(bytecode, offset);
         }
     }
@@ -49,12 +51,12 @@ AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, un
 }
 
 AABytecode*
-AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instructions, unsigned int* offset)
+AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, unsigned int* offset)
 {
     unsigned int i;
-    for (i = 0; i < AAArchs.length; i++) {
-        if (strcmp(AAArchs.item[i]->name, arch)) {
-            return AAArchs[i]->callbackItB(bytecode, offset);
+    for (i = 0; i < AAArchs->length; i++) {
+        if (strcmp(AAArchs->item[i]->name, arch)) {
+            return AAArchs[i]->callbackItB(instruction, offset);
         }
     }
 

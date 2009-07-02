@@ -35,20 +35,17 @@
 #define __ASMASH_BYTECODE_H
 
 #include "types.h"
-#include "InstructionList.h"
 
 typedef struct _AABytecode {
     unsigned char* data;
     unsigned int   length;
 } AABytecode;
 
-#warning "Tette"
-
-AABytecode* AA_NewBytecode (const char* code, unsigned int length);
+AABytecode* AA_NewBytecode (unsigned char* code, unsigned int length);
 
 AABytecode* AA_NewBytecodeFromFile (const char* path);
 
-AAInstructionList* AA_BytecodeToInstructionList (AABytecode* bytecode);
+void AA_DestroyBytecode (AABytecode* bytecode);
 
 #define AA_GetBytecodeLength(code) (code->length)
 

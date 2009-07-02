@@ -34,6 +34,9 @@
 #ifndef __ASMASH_ARCH_ARCH_H
 #define __ASMASH_ARCH_ARCH_H
 
+#include "Bytecode.h"
+#include "Instruction.h"
+
 typedef struct _AAArch {
     char*          name;
     AAInstruction* (*callbackBtI)(AABytecode*, unsigned int*);

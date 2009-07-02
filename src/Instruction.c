@@ -32,8 +32,7 @@
  */
 
 #include "Instruction.h"
-#include "Archs/api.h"
-#include "private/Instruction.h"
+#include "Arch/api.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -64,7 +63,7 @@ AA_DestroyInstruction (AAInstruction* instruction)
     free(instruction->name);
 
     if (instruction->source) {
-        AA_DestroyInstructionOperand(instruction->source)
+        AA_DestroyInstructionOperand(instruction->source);
     }
 
     if (instruction->dest) {
@@ -77,55 +76,6 @@ AA_DestroyInstruction (AAInstruction* instruction)
 AAInstruction*
 AA_ParseInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
 {
-    return AA_ArchDispatch(arch, bytecode, offset);
-}
-
-AAInstruction*
-AA_ParseInstructionIA32 (AABytecode* bytecode, unsigned int* offset)
-{
-    AAInstruction*  result    = (AAInstruction*) malloc(sizeof(AAInstruction));
-    unsigned int    increment = 0;
-
-    switch (AA_GetBytecodeByte(bytecode, 0)) {
-        case 0x01:
-        case 0x09:
-        case 0x11:
-        case 0x19:
-        case 0x21:
-        case 0x25:
-        case 0x29:
-        case 0x31:
-        case 0x39:
-        case 0x85:
-        case 0x86:
-        case 0x87:
-        case 0x89:
-        case 0xa1:
-        case 0xa3:
-            increment = 1;
-
-            if ((code[i+1] & 0x07)      == aaESP) increment++;
-            if ((code[i+1] & 0xc0) >> 6 == 0x01)  increment++;
-
-            if ((code[i+1] & 0xc0) >> 6 == 0x10) {
-                result->name[0] = '\0';
-            }
-        break;
-
-    }
-
-    return result;
-}
-
-AAInstruction*
-AA_ParseInstructionAMD64 (AABytecode* bytecode, unsigned int* offset)
-{
-    return NULL;
-}
-
-AAInstruction*
-AA_ParseInstructionPPC (AABytecode* bytecode, unsigned int* offset)
-{
-    return NULL;
+    return AA_ArchDispatchBytecodeToInstruction(arch, bytecode, offset);
 }
 

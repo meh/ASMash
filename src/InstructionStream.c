@@ -38,18 +38,19 @@
 #include <string.h>
 
 AAInstructionStream*
-AA_NewInstructionStream (AABytecode* bytecode)
+AA_NewInstructionStream (AABytecode* bytecode, const char* arch)
 {
-    AAInstructionStream* result = (AAInstructionStream*) malloc(sizeof(AAInstructionStream));
+    AAInstructionStream* result;
 
     if (bytecode == NULL) {
         return NULL;
     }
 
+    result               = (AAInstructionStream*) malloc(sizeof(AAInstructionStream));
     result->bytecode     = bytecode;
     result->instructions = 0;
-
-    result->_offset = 0;
+    result->_offset      = 0;
+    result->_arch        = (arch != NULL) ? strdup(arch) : AA_DEFAULT_ARCH;
 
     return result;
 }
@@ -58,6 +59,7 @@ void
 AA_DestroyInstructionStream (AAInstructionStream* stream)
 {
     AA_DestroyBytecode(stream->bytecode);
+    free(stream->_arch);
 
     free(stream);
 }
@@ -76,7 +78,7 @@ AA_NextStreamInstruction (AAInstructionStream* stream)
         return NULL;
     }
 
-    result = AA_ParseInstruction (wrapper, &offset);
+    result = AA_ParseInstruction (stream->_arch, wrapper, &offset);
 
     stream->_offset += offset;
     stream->instructions++;
