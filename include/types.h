@@ -41,6 +41,7 @@ typedef enum {
 
 typedef unsigned char AAOptions;
 
+/*
 #define	AA_INTEL_FLAVOR	    0x01
 #define	AA_AT_FLAVOR		0x02
 
@@ -58,8 +59,7 @@ typedef unsigned char AAOptions;
 #define AA_IS_16BIT(flags) ((flags & AA_BITS_16) == AA_BITS_16)
 #define AA_IS_32BIT(flags) ((flags & AA_BITS_32) == AA_BITS_32)
 #define AA_IS_64BIT(flags) ((flags & AA_BITS_64) == AA_BITS_64)
-
-#include "Bytecode.h"
+*/
 
 #endif
 

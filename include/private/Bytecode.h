@@ -34,7 +34,7 @@
 #ifndef __ASMASH_PRIVATE_BYTECODE_H
 #define __ASMASH_PRIVATE_BYTECODE_H
 
-#include "asmash.h"
+#include "types.h"
 
 #define AA_INSTRLEN 24
 

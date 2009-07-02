@@ -33,8 +33,9 @@
 
 #include "Arch/IA32/api.h"
 
-extern AAArchList* AAArchs;
 AAArch* AAArchIA32;
+
+AA_AddArch(AAArchs, (AAArchIA32 = AA_NewArch("IA32", AA_IA32_BytecodeToInstruction, AA_IA32_InstructionToBytecode)));
 
 AAInstruction*
 AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset)
@@ -47,6 +48,4 @@ AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset
 {
 
 }
-
-AA_AddArch(AAArchs, (AAArchIA32 = AA_NewArch("IA32", AA_IA32_BytecodeToInstruction, AA_IA32_InstructionToBytecode));
 

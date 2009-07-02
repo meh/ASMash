@@ -34,13 +34,15 @@
 #ifndef __ASMASH_BYTECODE_H
 #define __ASMASH_BYTECODE_H
 
-#include "asmash.h"
+#include "types.h"
 #include "InstructionList.h"
 
 typedef struct _AABytecode {
-    char*        data;
-    unsigned int length;
+    unsigned char* data;
+    unsigned int   length;
 } AABytecode;
+
+#warning "Tette"
 
 AABytecode* AA_NewBytecode (const char* code, unsigned int length);
 

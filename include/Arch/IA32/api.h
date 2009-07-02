@@ -31,4 +31,9 @@
  * this file might be covered by the GNU General Public License.
  */
 
+extern AAArchList* AAArchs;
 extern AAArch* AAArchIA32;
+
+AAInstruction* AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset);
+
+AABytecode* AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset);

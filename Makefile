@@ -3,11 +3,14 @@ CXX     = g++
 CFLAGS  = -Wall -pedantic # -pedantic-errors # The unistd.h has some errors with pedantic, not our fault
 LDFLAGS =
 
+NAME       = ASMash
 LIB        = asmash
 SRCDIR     = src
 INCLUDEDIR = include
 PREFIX     = /usr
-FILES      = ${SRCDIR}/decode.o ${SRCDIR}/elf.o ${SRCDIR}/op_bits8.o ${SRCDIR}/op_jmp.o ${SRCDIR}/op_pushpop.o ${SRCDIR}/op_reg32.o ${SRCDIR}/op_scal32.o ${SRCDIR}/op_scal81.o ${SRCDIR}/single.o ${SRCDIR}/utils.o
+FILES      = ${SRCDIR}/Bytecode.o ${SRCDIR}/Instruction.o ${SRCDIR}/InstructionList.o ${SRCDIR}/InstructionStream.o \
+			 ${SRCDIR}/Arch/api.o ${SRCDIR}/Arch/IA32/api.o \
+			 ${SRCDIR}/Format/api.o ${SRCDIR}/Format/ELF/api.o
 
 ifeq (${DEBUG}, 1)
 CFLAGS += -g3

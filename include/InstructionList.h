@@ -34,6 +34,7 @@
 #ifndef __ASMASH_INSTRUCTIONLIST_H
 #define __ASMASH_INSTRUCTIONLIST_H
 
+#include "Bytecode.h"
 #include "Instruction.h"
 
 typedef struct _AAInstructionList {

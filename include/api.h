@@ -34,6 +34,6 @@
 #ifndef __ASMASH_API_H
 #define __ASMASH_API_H
 
-#include "asmash.h"
+#include "Bytecode.h"
 
 #endif

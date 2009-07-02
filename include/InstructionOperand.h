@@ -34,22 +34,22 @@
 #ifndef __ASMASH_INSTRUCTIONOPERAND_H
 #define __ASMASH_INSTRUCTIONOPERAND_H
 
-typedef enum _AAInstructionOperandType {
+typedef enum {
     AARegisterOperand,
     AAMemoryOperand,
     AAAddressOperand,
     AAConstantOperand
 } AAInstructionOperandType;
 
+#define AA_OPERAND_IS_REGISTER(operand) (operand->type == AARegisterOperand)
+
 typedef struct _AAInstructionOperand {
     AAInstructionOperandType type;
     unsigned int             value;
-} AAInstruction;
+} AAInstructionOperand;
 
 AAInstructionOperand* AA_NewInstructionOperand (AAInstructionOperandType type, unsigned int value);
 
 void AA_DestroyInstructionOperand (AAInstructionOperand* operand);
-
-#define AA_OPERAND_IS_REGISTER(operand) (operand->type == AARegisterOperand)
 
 #endif

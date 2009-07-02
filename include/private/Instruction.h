@@ -34,7 +34,7 @@
 #ifndef __ASMASH_PRIVATE_INSTRUCTION_H
 #define __ASMASH_PRIVATE_INSTRUCTION_H
 
-#include "asmash.h"
+#include "types.h"
 
 typedef enum {
     aaEAX = 0,

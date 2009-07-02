@@ -34,6 +34,7 @@
 #ifndef __ASMASH_INSTRUCTION_H
 #define __ASMASH_INSTRUCTION_H
 
+#include "Bytecode.h"
 #include "InstructionOperand.h"
 
 #define AA_INSTRUCTION_SOURCE 0x01
