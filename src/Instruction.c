@@ -32,6 +32,7 @@
  */
 
 #include "Instruction.h"
+#include "Archs/api.h"
 #include "private/Instruction.h"
 
 #include <stdio.h>
@@ -41,13 +42,14 @@
 AAInstruction*
 AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest)
 {
-    AAInstruction* result = (AAInstruction*) malloc(sizeof(AAInstruction));
+    AAInstruction* result;
 
-    if (name == NULL || strlen(name) == 0 || source == NULL) {
+    if (name == NULL || strlen(name) == 0) {
         return NULL;
     }
-
-    strncpy(result->name, name, 16);
+    
+    result         = (AAInstruction*) malloc(sizeof(AAInstruction));
+    result->name   = strdup(name);
     result->opcode = opcode;
     result->offset = offset;
     result->source = source;
@@ -59,7 +61,11 @@ AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, A
 void
 AA_DestroyInstruction (AAInstruction* instruction)
 {
-    AA_DestroyInstructionOperand(instruction->source)
+    free(instruction->name);
+
+    if (instruction->source) {
+        AA_DestroyInstructionOperand(instruction->source)
+    }
 
     if (instruction->dest) {
         AA_DestroyInstructionOperand(instruction->dest);
@@ -69,7 +75,13 @@ AA_DestroyInstruction (AAInstruction* instruction)
 }
 
 AAInstruction*
-AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset)
+AA_ParseInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
+{
+    return AA_ArchDispatch(arch, bytecode, offset);
+}
+
+AAInstruction*
+AA_ParseInstructionIA32 (AABytecode* bytecode, unsigned int* offset)
 {
     AAInstruction*  result    = (AAInstruction*) malloc(sizeof(AAInstruction));
     unsigned int    increment = 0;
@@ -101,6 +113,19 @@ AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset)
         break;
 
     }
+
+    return result;
 }
 
+AAInstruction*
+AA_ParseInstructionAMD64 (AABytecode* bytecode, unsigned int* offset)
+{
+    return NULL;
+}
+
+AAInstruction*
+AA_ParseInstructionPPC (AABytecode* bytecode, unsigned int* offset)
+{
+    return NULL;
+}
 

@@ -31,32 +31,33 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#include "Arch/api.h"
 
-#include "InstructionOperand.h"
+AAArchList* AAArchs = AA_NewArchList(NULL, 0);
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+AAInstruction*
+AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
+{
+    unsigned int i;
+    for (i = 0; i < aa_archs.length; i++) {
+        if (strcmp(aa_archs.item[i]->name, arch)) {
+            return aa_archs[i]->callbackBtI(bytecode, offset);
+        }
+    }
 
-typedef struct _AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+    return NULL;
+}
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+AABytecode*
+AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instructions, unsigned int* offset)
+{
+    unsigned int i;
+    for (i = 0; i < aa_archs.length; i++) {
+        if (strcmp(aa_archs.item[i]->name, arch)) {
+            return aa_archs[i]->callbackItB(bytecode, offset);
+        }
+    }
 
-void AA_DestroyInstruction (AAInstruction* instruction);
+    return NULL;
+}
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
-
-#define AA_GetInstructionName(instruction) (instruction->name)
-
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
-
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
-
-#endif

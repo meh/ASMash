@@ -31,32 +31,23 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#ifndef __ASMASH_ARCH_ARCH_H
+#define __ASMASH_ARCH_ARCH_H
 
-#include "InstructionOperand.h"
+typedef struct _AAArch {
+    char*          name;
+    AAInstruction* (*callbackBtI)(AABytecode*, unsigned int*);
+    AABytecode*    (*callbackItB)(AAInstruction*, unsigned int*);
+} AAArch;
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+AAArch* AA_NewArch (const char* name, AAInstruction* (*callbackBtI)(AABytecode*, unsigned int*), AABytecode* (*callbackItB)(AAInstruction*, unsigned int*));
 
-typedef struct _AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+void AA_DestroyArch (AAArch* arch);
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+#define AA_GetArchName(arch) (arch->name)
 
-void AA_DestroyInstruction (AAInstruction* instruction);
+#define AA_GetArchBytecodeToInstruction(arch) (arch->callbackBtI)
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
-
-#define AA_GetInstructionName(instruction) (instruction->name)
-
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
-
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
+#define AA_GetArchInstructionToBytecode(arch) (arch->callbackItB)
 
 #endif

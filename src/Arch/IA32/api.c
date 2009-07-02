@@ -31,32 +31,21 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#include "Arch/IA32/api.h"
 
-#include "InstructionOperand.h"
+extern AAArchList* AAArchs;
+AAArch* AAArchIA32;
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+AAInstruction*
+AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset)
+{
 
-typedef struct _AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+}
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+AABytecode*
+AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset)
+{
 
-void AA_DestroyInstruction (AAInstruction* instruction);
+}
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
-
-#define AA_GetInstructionName(instruction) (instruction->name)
-
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
-
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
-
-#endif
+AA_AddArch(AAArchs, (AAArchIA32 = AA_NewArch("IA32", AA_IA32_BytecodeToInstruction, AA_IA32_InstructionToBytecode));

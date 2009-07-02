@@ -31,32 +31,40 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#include "Arch/ArchList.h"
 
-#include "InstructionOperand.h"
+AAArchList*
+AA_NewArchList (AAArch* item, unsigned int length)
+{
+    AAArchList* result;
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+    if (item == NULL && length != 0) {
+        return NULL;
+    }
 
-typedef struct _AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+    result         = (AAArchList*) malloc(sizeof(AAArchList));
+    result->item   = item;
+    result->length = length;
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+    return result;
+}
 
-void AA_DestroyInstruction (AAInstruction* instruction);
+void
+AA_DestroyArchList (AAArchList* list)
+{
+    unsigned int i;
+    for (i = 0; i < list->length; i++) {
+        AA_DestroyArch(list->item[i]);
+    }
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
+    free(list);
+}
 
-#define AA_GetInstructionName(instruction) (instruction->name)
+void
+AA_AddArch (AAArchList* list, AAArch* item)
+{
+    item->length++;
+    list->item = (AAArch*) realloc(list->item, item->length*sizeof(AAArch));
+    list->item[item->length-1] = item;
+}
 
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
-
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
-
-#endif

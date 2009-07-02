@@ -31,32 +31,75 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#include "InstructionStream.h"
 
-#include "InstructionOperand.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+AAInstructionStream*
+AA_NewInstructionStream (AABytecode* bytecode)
+{
+    AAInstructionStream* result = (AAInstructionStream*) malloc(sizeof(AAInstructionStream));
 
-typedef struct _AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+    if (bytecode == NULL) {
+        return NULL;
+    }
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+    result->bytecode     = bytecode;
+    result->instructions = 0;
 
-void AA_DestroyInstruction (AAInstruction* instruction);
+    result->_offset = 0;
 
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
+    return result;
+}
 
-#define AA_GetInstructionName(instruction) (instruction->name)
+void
+AA_DestroyInstructionStream (AAInstructionStream* stream)
+{
+    AA_DestroyBytecode(stream->bytecode);
 
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
+    free(stream);
+}
 
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
+AAInstruction*
+AA_NextStreamInstruction (AAInstructionStream* stream)
+{
+    unsigned int   offset;
+    AABytecode*    wrapper;
+    AAInstruction* result;
 
-#endif
+    wrapper->data   = stream->bytecode->data   + stream->_offset;
+    wrapper->length = stream->bytecode->length - stream->_offset;
+
+    if (wrapper->length == 0) {
+        return NULL;
+    }
+
+    result = AA_ParseInstruction (wrapper, &offset);
+
+    stream->_offset += offset;
+    stream->instructions++;
+
+    return result;
+}
+
+AABool
+AA_ProcessInstructionStream (AAInstructionStream* stream, AABool (*callback)(AAInstruction*))
+{
+    AABool         result = AAFalse;
+    AAInstruction* data;
+
+    while ((data = AA_NextStreamInstruction(stream)) != NULL) {
+        result = callback(data);
+
+        AA_DestroyInstruction(data);
+
+        if (!result) {
+            break;
+        }
+    }
+
+    return result;
+}
+

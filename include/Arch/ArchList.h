@@ -31,32 +31,18 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_INSTRUCTION_H
-#define __ASMASH_INSTRUCTION_H
+#ifndef __ASMASH_ARCH_ARCHLIST_H
+#define __ASMASH_ARCH_ARCHLIST_H
 
-#include "InstructionOperand.h"
+typedef struct _AAArchList {
+    AAArch**     item;
+    unsigned int length;
+} AAArchList;
 
-#define AA_INSTRUCTION_SOURCE 0x01
-#define AA_INSTRUCTION_DEST   0x02
+AAArchList* AA_NewArchList (AAArch* item, unsigned int length);
 
-typedef struct _AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
-    unsigned int          offset;
-    AAInstructionOperand* source;
-    AAInstructionOperand* dest;
-} AAInstruction;
+void AA_DestroyArchList (AAArchList* list);
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
-
-void AA_DestroyInstruction (AAInstruction* instruction);
-
-AAInstruction* AA_ParseInstruction (AABytecode* bytecode, unsigned int* offset);
-
-#define AA_GetInstructionName(instruction) (instruction->name)
-
-#define AA_GetInstructionOpCode(instruction) (instruction->opcode)
-
-#define AA_GetInstructionOperand(instruction, operand) (operand == AA_INSTRUCTION_SOURCE ? instruction->source : instruction->dest)
+void AA_AddArch (AAArchList* list, AAArch* item);
 
 #endif
