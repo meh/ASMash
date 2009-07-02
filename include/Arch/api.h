@@ -31,6 +31,9 @@
  * this file might be covered by the GNU General Public License.
  */
 
+#ifndef __ASMASH_ARCH_H
+#define __ASMASH_ARCH_H
+
 #include "Arch/Arch.h"
 #include "Arch/ArchList.h"
 
@@ -40,3 +43,4 @@ AAInstruction* AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecod
 
 AABytecode* AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, unsigned int* offset);
 
+#endif
