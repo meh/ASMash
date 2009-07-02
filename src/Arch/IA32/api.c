@@ -49,3 +49,4 @@ AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset
 }
 
 AA_AddArch(AAArchs, (AAArchIA32 = AA_NewArch("IA32", AA_IA32_BytecodeToInstruction, AA_IA32_InstructionToBytecode));
+

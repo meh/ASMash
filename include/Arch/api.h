@@ -34,6 +34,8 @@
 #include "Arch/Arch.h"
 #include "Arch/ArchList.h"
 
+extern AAArchList* AAArchs;
+
 AAInstruction* AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset);
 
 AABytecode* AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instructions, unsigned int* offset);

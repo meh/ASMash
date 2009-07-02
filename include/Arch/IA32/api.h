@@ -31,33 +31,4 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#include "Arch/api.h"
-
-AAArchList* AAArchs = AA_NewArchList(NULL, 0);
-
-AAInstruction*
-AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
-{
-    unsigned int i;
-    for (i = 0; i < AAArchs.length; i++) {
-        if (strcmp(AAArchs.item[i]->name, arch)) {
-            return AAArchs[i]->callbackBtI(bytecode, offset);
-        }
-    }
-
-    return NULL;
-}
-
-AABytecode*
-AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instructions, unsigned int* offset)
-{
-    unsigned int i;
-    for (i = 0; i < AAArchs.length; i++) {
-        if (strcmp(AAArchs.item[i]->name, arch)) {
-            return AAArchs[i]->callbackItB(bytecode, offset);
-        }
-    }
-
-    return NULL;
-}
-
+extern AAArch* AAArchIA32;
