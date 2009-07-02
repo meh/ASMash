@@ -40,7 +40,7 @@
 #define AA_INSTRUCTION_SOURCE 0x01
 #define AA_INSTRUCTION_DEST   0x02
 
-typedef struct _AAInstruction {
+typedef struct AAInstruction {
     char*                 name;
     unsigned int          opcode;
     unsigned int          offset;

@@ -37,17 +37,17 @@
 #include "Bytecode.h"
 #include "Instruction.h"
 
-typedef struct _AAInstructionList {
-    AAInstruction** item;
-    unsigned int    length;
+typedef struct AAInstructionList {
+    struct AAInstruction** item;
+    unsigned int           length;
 } AAInstructionList;
 
-AAInstructionList* AA_NewInstructionList (AAInstruction** item, unsigned int length);
+AAInstructionList* AA_NewInstructionList (struct AAInstruction** item, unsigned int length);
 
 void AA_DestroyInstructionList (AAInstructionList* list);
 
 AAInstructionList* AA_ParseInstructionList (AABytecode* bytecode);
 
-void AA_AddInstruction (AAInstructionList* list, AAInstruction* item);
+void AA_AddInstruction (AAInstructionList* list, struct AAInstruction* item);
 
 #endif

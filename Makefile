@@ -12,7 +12,10 @@ FILES      = ${SRCDIR}/Bytecode.o ${SRCDIR}/Instruction.o ${SRCDIR}/InstructionL
 			 ${SRCDIR}/Arch/api.o ${SRCDIR}/Arch/IA32/api.o \
 			 ${SRCDIR}/Format/api.o ${SRCDIR}/Format/ELF/api.o
 
-ARCH = IA32;
+## ARCHS ##
+ARCH_IA32 = 0
+
+ARCH = ${ARCH_IA32}
 
 ifeq (${DEBUG}, 1)
 CFLAGS += -g3
@@ -23,7 +26,7 @@ all: $(FILES)
 	ar rcs lib$(LIB).a ${SRCDIR}/*.lo
 
 $(FILES): $(FILES:.o=.c)
-	${CC} ${CFLAGS} -DAA_DEFAULT_ARCH='"${ARCH}"' -I./include/ -I./src/ -fPIC -c $*.c -o $*.lo
+	${CC} ${CFLAGS} -DAA_DEFAULT_ARCH='${ARCH}' -I./include/ -I./src/ -fPIC -c $*.c -o $*.lo
 
 install:
 	mkdir -p $(PREFIX)/lib

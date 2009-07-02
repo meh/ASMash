@@ -31,20 +31,18 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_ARCH_ARCHLIST_H
-#define __ASMASH_ARCH_ARCHLIST_H
+#ifndef __ASMASH_FORMAT_H
+#define __ASMASH_FORMAT_H
 
-#include "Arch/Arch.h"
+#define AA_FORMAT_ELF 0
+#define AA_FORMAT_PE  1
 
-typedef struct _AAArchList {
-    AAArch**     item;
-    unsigned int length;
-} AAArchList;
+const AAFormat[] = {
+    {"ELF", , "PE"
+};
 
-AAArchList* AA_NewArchList (AAArch* item, unsigned int length);
+void AA_FormatInit (void);
 
-void AA_DestroyArchList (AAArchList* list);
-
-void AA_AddArch (AAArchList* list, AAArch* item);
+const char* AA_GetFormat (AAProgram* program);
 
 #endif

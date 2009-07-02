@@ -36,12 +36,18 @@
 
 #include "types.h"
 
-typedef struct _AABytecode {
+typedef struct AABytecode {
+    struct AAArch* arch;
     unsigned char* data;
     unsigned int   length;
 } AABytecode;
 
-AABytecode* AA_NewBytecode (unsigned char* code, unsigned int length);
+#include "Arch/api.h"
+#include "InstructionList.h"
+
+extern const AAArch AAArchs[];
+
+AABytecode* AA_NewBytecode (unsigned char* code, unsigned int length, AAArch* arch);
 
 AABytecode* AA_NewBytecodeFromFile (const char* path);
 
@@ -50,5 +56,7 @@ void AA_DestroyBytecode (AABytecode* bytecode);
 #define AA_GetBytecodeLength(code) (code->length)
 
 #define AA_GetBytecodeByte(code, i) (byte->data[i])
+
+struct AAInstructionList* AA_BytecodeToInstructions (AABytecode* bytecode);
 
 #endif

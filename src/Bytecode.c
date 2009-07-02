@@ -39,11 +39,12 @@
 #include <memory.h>
 
 AABytecode*
-AA_NewBytecode (unsigned char* code, unsigned int length)
+AA_NewBytecode (unsigned char* code, unsigned int length, AAArch* arch)
 {
     AABytecode* result = (AABytecode*) malloc(sizeof(AABytecode));
     result->data       = code;
     result->length     = length;
+    result->arch       = (arch != NULL) ? arch : &AAArchs[AA_DEFAULT_ARCH];
 
     return result;
 }
@@ -60,5 +61,11 @@ AA_DestroyBytecode (AABytecode* bytecode)
     free(bytecode->data);
 
     free(bytecode);
+}
+
+AAInstructionList*
+AA_BytecodeToInstructions (AABytecode* bytecode)
+{
+    return NULL;
 }
 

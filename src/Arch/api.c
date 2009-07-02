@@ -40,14 +40,12 @@
 
 static AABool inited = AAFalse;
 
-const AAArch AAArchs[] = {
-    { "IA32", AA_IA32_Init }
-}
+#define AA_NEW_ARCH(name) { #name, AA_## name ##_BytecodeToInstruction, AA_## name ##_InstructionToBytecode }
 
-void
-AA_ArchInit (void)
-{
-    AA_IA32_Init(AAArchs);
+#define AA_ARCH_IA32 0
+
+const AAArch AAArchs[] = {
+    AA_NEW_ARCH(IA32)
 }
 
 AAInstruction*

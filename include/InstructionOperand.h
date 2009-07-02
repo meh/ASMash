@@ -43,7 +43,7 @@ typedef enum {
 
 #define AA_OPERAND_IS_REGISTER(operand) (operand->type == AARegisterOperand)
 
-typedef struct _AAInstructionOperand {
+typedef struct AAInstructionOperand {
     AAInstructionOperandType type;
     unsigned int             value;
 } AAInstructionOperand;

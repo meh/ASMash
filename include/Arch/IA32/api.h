@@ -36,9 +36,6 @@
 
 #include "Instruction.h"
 #include "Bytecode.h"
-#include "Arch/ArchList.h"
-
-void AA_IA32_Init (AAArchList* list);
 
 AAInstruction* AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset);
 

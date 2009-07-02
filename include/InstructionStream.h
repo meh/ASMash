@@ -37,7 +37,7 @@
 #include "Bytecode.h"
 #include "Instruction.h"
 
-typedef struct _AAInstructionStream {
+typedef struct AAInstructionStream {
     AABytecode*  bytecode;
     unsigned int instructions;
 

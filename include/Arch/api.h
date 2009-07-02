@@ -34,15 +34,17 @@
 #ifndef __ASMASH_ARCH_H
 #define __ASMASH_ARCH_H
 
-#include "Arch/Arch.h"
-#include "Arch/ArchList.h"
+typedef struct AAArch {
+    const char*           name;
+    struct AAInstruction* (*callbackBtI)(struct AABytecode*, unsigned int*);
+    struct AABytecode*    (*callbackItB)(struct AAInstruction*, unsigned int*);
+} AAArch;
 
-/* extern AAArchList* AAArchs; */
+#include "Instruction.h"
+#include "Bytecode.h"
 
-void AA_ArchInit (void);
+struct AAInstruction* AA_ArchDispatchBytecodeToInstruction (const char* arch, struct AABytecode* bytecode, unsigned int* offset);
 
-AAInstruction* AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset);
-
-AABytecode* AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, unsigned int* offset);
+struct AABytecode* AA_ArchDispatchInstructionToBytecode (const char* arch, struct AAInstruction* instruction, unsigned int* offset);
 
 #endif
