@@ -31,42 +31,12 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_ARCH_IA32_OPCODES_H
-#define __ASMASH_ARCH_IA32_OPCODES_H
+#ifndef __ASMASH_ARCH_OPCODE_H
+#define __ASMASH_ARCH_OPCODE_H
 
-#include "types.h"
-
-typedef enum {
-    aaEAX = 0,
-    aaECX,
-    aaEDX,
-    aaEBX,
-    aaESP,
-    aaEBP,
-    aaESI,
-    aaEDI
-} AAInstructionRegisters32;
-
-typedef enum {
-    aaAX = 0,
-    aaCX,
-    aaDX,
-    aaBX,
-    aaSP,
-    aaBP,
-    aaSI,
-    aaDI
-} AAInstructionRegisters16;
-
-typedef enum {
-    aaAL = 0,
-    aaCL,
-    aaDL,
-    aaBL,
-    aaAH,
-    aaCH,
-    aaDH,
-    aaBH
-} AAInstructionRegisters8;
+typedef struct AAOpcode {
+    char*               name;
+    unsigned long long* values;
+} AAOpcode;
 
 #endif
