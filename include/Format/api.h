@@ -35,21 +35,16 @@
 #define __ASMASH_FORMAT_H
 
 #include "Arch/api.h"
+#include "Format/Symbol.h"
+#include "Format/Section.h"
 
 typedef struct AAFormat {
-    char*        name;
-    AASymbol*    (*GetSymbolAt)(unsigned int);
-    unsigned int (*GetSectionAddress)(const char*);
+    char*         name;
+    AASymbol*     (*GetSymbolAt)(unsigned long);
+    unsigned long (*GetSectionAddress)(const char*);
+    AASection*    (*GetSection)(const char*);
 } AAFormat;
 
-#define AA_NEW_FORMAT(name) { #name, }
-
-#define AA_FORMAT_ELF 0
-#define AA_FORMAT_PE  1
-
-static AAFormat AAFormats[] = {
-    {"ELF", , "PE"
-};
 
 void AA_FormatInit (void);
 

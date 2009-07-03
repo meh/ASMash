@@ -31,43 +31,12 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#include "Bytecode.h"
+#ifndef __ASMASH_FORMAT_SYMBOL_H
+#define __ASMASH_FORMAT_SYMBOL_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <memory.h>
+typedef struct AASymbol {
+    char*        name;
+    unsigned int address;
+} AASymbol;
 
-extern const AAArch AAArchs[];
-
-AABytecode*
-AA_NewBytecode (unsigned char* code, unsigned int length, AAArch* arch)
-{
-    AABytecode* result = (AABytecode*) malloc(sizeof(AABytecode));
-    result->data       = code;
-    result->length     = length;
-    result->arch       = (arch != NULL) ? arch : &AAArchs[AA_DEFAULT_ARCH];
-
-    return result;
-}
-
-AABytecode*
-AA_NewBytecodeFromFile (const char* path)
-{
-    return NULL;
-}
-
-void
-AA_DestroyBytecode (AABytecode* bytecode)
-{
-    free(bytecode->data);
-
-    free(bytecode);
-}
-
-AAInstructionList*
-AA_BytecodeToInstructions (AABytecode* bytecode)
-{
-    return NULL;
-}
-
+#endif

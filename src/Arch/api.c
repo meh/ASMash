@@ -36,6 +36,19 @@
 
 #include <string.h>
 
+#include "Arch/IA32/api.h"
+
+#define AA_NEW_ARCH(name) { #name, &AA_## name ##_BytecodeToInstruction, &AA_## name ##_InstructionToBytecode }
+#define AA_END_ARCHS { 0, 0, 0 }
+
+#define AA_ARCH_IA32 0
+
+const AAArch AAArchs[] = {
+    AA_NEW_ARCH(IA32),
+
+    AA_END_ARCHS
+};
+
 AAInstruction*
 AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
 {

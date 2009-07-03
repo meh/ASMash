@@ -32,3 +32,20 @@
  */
 
 #include "Format/api.h"
+
+#include "Format/ELF/api.h"
+#include "Format/PE/api.h"
+
+#define AA_NEW_FORMAT(name) { #name, &AA_## name ##_GetSymbolAt,  }
+#define AA_END_FORMAT { 0, 0, 0, 0 }
+
+#define AA_FORMAT_ELF 0
+#define AA_FORMAT_PE  1
+
+const AAFormat AAFormats[] = {
+    AA_NEW_FORMAT(ELF),
+    AA_NEW_FORMAT(PE),
+
+    AA_END_FORMAT
+};
+

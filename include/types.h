@@ -41,6 +41,8 @@ typedef enum {
 
 typedef unsigned char AAOptions;
 
+typedef unsigned long long AAAddress;
+
 /*
 #define	AA_INTEL_FLAVOR	    0x01
 #define	AA_AT_FLAVOR		0x02
