@@ -31,14 +31,19 @@
  * this file might be covered by the GNU General Public License.
  */
 
-#ifndef __ASMASH_ARCH_IA32_H
-#define __ASMASH_ARCH_IA32_H
+#ifndef __ASMASH_PROGRAM_H
+#define __ASMASH_PROGRAM_H
 
-#include "Instruction.h"
+#include "types.h"
 #include "Bytecode.h"
+#include "Arch/api.h"
+#include "Format/api.h"
 
-struct AAInstruction* AA_IA32_BytecodeToInstruction (struct AABytecode* bytecode, unsigned int* offset);
-
-struct AABytecode* AA_IA32_InstructionToBytecode (struct AAInstruction* instructions, unsigned int* offset);
+typedef struct AAProgram {
+    AAArch*        arch;
+    AAFormat*      format;
+    unsigned char* data;
+    unsigned int   length;
+} AAProgram;
 
 #endif

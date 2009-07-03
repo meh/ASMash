@@ -34,33 +34,17 @@
 #include "types.h"
 #include "Arch/api.h"
 
-#include "Arch/IA32/api.h"
-
 #include <string.h>
-
-static AABool inited = AAFalse;
-
-#define AA_NEW_ARCH(name) { #name, AA_## name ##_BytecodeToInstruction, AA_## name ##_InstructionToBytecode }
-
-#define AA_ARCH_IA32 0
-
-const AAArch AAArchs[] = {
-    AA_NEW_ARCH(IA32)
-}
 
 AAInstruction*
 AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
 {
-    unsigned int i;
+    AAArch* Archs = AAArchs;
+    AAArch* Arch;
 
-    if (!inited) {
-        AA_ArchInit();
-        inited = AATrue;
-    }
-
-    for (i = 0; i < AAArchs->length; i++) {
-        if (strcmp(AAArchs->item[i]->name, arch)) {
-            return AAArchs->item[i]->callbackBtI(bytecode, offset);
+    while ((Arch = Archs++) != NULL) {
+        if (strcmp(Arch->name, arch)) {
+            return Arch->BytecodeToInstruction(bytecode, offset);
         }
     }
 
@@ -70,16 +54,12 @@ AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, un
 AABytecode*
 AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, unsigned int* offset)
 {
-    unsigned int i;
+    AAArch* Archs = AAArchs;
+    AAArch* Arch;
 
-    if (!inited) {
-        AA_ArchInit();
-        inited = AATrue;
-    }
-
-    for (i = 0; i < AAArchs->length; i++) {
-        if (strcmp(AAArchs->item[i]->name, arch)) {
-            return AAArchs->item[i]->callbackItB(instruction, offset);
+    while ((Arch = Archs++) != NULL) {
+        if (strcmp(Arch->name, arch)) {
+            return Arch->InstructionToBytecode(instruction, offset);
         }
     }
 

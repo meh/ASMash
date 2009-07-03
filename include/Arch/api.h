@@ -36,12 +36,24 @@
 
 typedef struct AAArch {
     const char*           name;
-    struct AAInstruction* (*callbackBtI)(struct AABytecode*, unsigned int*);
-    struct AABytecode*    (*callbackItB)(struct AAInstruction*, unsigned int*);
+    struct AAInstruction* (*BytecodeToInstruction)(struct AABytecode*, unsigned int*);
+    struct AABytecode*    (*InstructionToBytecode)(struct AAInstruction*, unsigned int*);
 } AAArch;
 
 #include "Instruction.h"
 #include "Bytecode.h"
+
+#include "Arch/IA32/api.h"
+
+#define AA_NEW_ARCH(name) { #name, &AA_## name ##_BytecodeToInstruction, &AA_## name ##_InstructionToBytecode }
+
+#define AA_ARCH_IA32 0
+
+static AAArch AAArchs[] = {
+    AA_NEW_ARCH(IA32),
+
+    {0}
+};
 
 struct AAInstruction* AA_ArchDispatchBytecodeToInstruction (const char* arch, struct AABytecode* bytecode, unsigned int* offset);
 

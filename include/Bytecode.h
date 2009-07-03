@@ -45,8 +45,6 @@ typedef struct AABytecode {
 #include "Arch/api.h"
 #include "InstructionList.h"
 
-extern const AAArch AAArchs[];
-
 AABytecode* AA_NewBytecode (unsigned char* code, unsigned int length, AAArch* arch);
 
 AABytecode* AA_NewBytecodeFromFile (const char* path);
