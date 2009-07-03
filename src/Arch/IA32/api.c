@@ -36,13 +36,13 @@
 #include <stdlib.h>
 
 AAInstruction*
-AA_IA32_BytecodeToInstruction (AABytecode* bytecode, unsigned int* offset)
+AA_IA32_BytecodeToInstruction (AABytecode* bytecode, AAAddress* offset)
 {
     return NULL;
 }
 
 AABytecode*
-AA_IA32_InstructionToBytecode (AAInstruction* instructions, unsigned int* offset)
+AA_IA32_InstructionToBytecode (AAInstruction* instructions, AAAddress* offset)
 {
     return NULL;
 }

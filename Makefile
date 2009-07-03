@@ -1,6 +1,6 @@
 CC      = gcc
 CXX     = g++
-CFLAGS  = -Wall -pedantic # -pedantic-errors # The unistd.h has some errors with pedantic, not our fault
+CFLAGS  = -Wall # -pedantic # I hate pedantic # -pedantic-errors # The unistd.h has some errors with pedantic, not our fault
 LDFLAGS =
 
 NAME       = ASMash

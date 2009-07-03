@@ -34,9 +34,11 @@
 #ifndef __ASMASH_FORMAT_SYMBOL_H
 #define __ASMASH_FORMAT_SYMBOL_H
 
+#include "types.h"
+
 typedef struct AASymbol {
-    char*        name;
-    unsigned int address;
+    char*     name;
+    AAAddress address;
 } AASymbol;
 
 #endif

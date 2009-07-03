@@ -39,7 +39,7 @@
 #include <string.h>
 
 AAInstruction*
-AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest)
+AA_NewInstruction (const char* name, unsigned int opcode, AAAddress offset, AAInstructionOperand* source, AAInstructionOperand* dest)
 {
     AAInstruction* result;
 
@@ -74,7 +74,7 @@ AA_DestroyInstruction (AAInstruction* instruction)
 }
 
 AAInstruction*
-AA_ParseInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
+AA_ParseInstruction (const char* arch, AABytecode* bytecode, AAAddress* offset)
 {
     return AA_ArchDispatchBytecodeToInstruction(arch, bytecode, offset);
 }

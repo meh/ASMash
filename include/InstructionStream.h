@@ -34,6 +34,7 @@
 #ifndef __ASMASH_INSTRUCTIONSTREAM_H
 #define __ASMASH_INSTRUCTIONSTREAM_H
 
+#include "types.h"
 #include "Bytecode.h"
 #include "Instruction.h"
 
@@ -41,7 +42,7 @@ typedef struct AAInstructionStream {
     AABytecode*  bytecode;
     unsigned int instructions;
 
-    unsigned int _offset;
+    AAAddress _offset;
     char*        _arch;
 } AAInstructionStream;
 

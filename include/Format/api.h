@@ -34,18 +34,16 @@
 #ifndef __ASMASH_FORMAT_H
 #define __ASMASH_FORMAT_H
 
+#include "types.h"
 #include "Arch/api.h"
 #include "Format/Symbol.h"
 #include "Format/Section.h"
 
 typedef struct AAFormat {
-    char*         name;
-    AASymbol*     (*GetSymbolAt)(unsigned long);
-    unsigned long (*GetSectionAddress)(const char*);
-    AASection*    (*GetSection)(const char*);
+    char*      name;
+    AASymbol*  (*GetSymbolAt)(AAAddress);
+    AAAddress  (*GetSectionAddress)(const char*);
+    AASection* (*GetSection)(const char*);
 } AAFormat;
-
-
-void AA_FormatInit (void);
 
 #endif

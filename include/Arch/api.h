@@ -34,6 +34,9 @@
 #ifndef __ASMASH_ARCH_H
 #define __ASMASH_ARCH_H
 
+struct AAInstruction;
+struct AABytecode;
+
 typedef struct AAArch {
     const char*           name;
     struct AAInstruction* (*BytecodeToInstruction)(struct AABytecode*, AAAddress*);

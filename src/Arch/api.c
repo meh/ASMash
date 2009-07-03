@@ -50,9 +50,9 @@ const AAArch AAArchs[] = {
 };
 
 AAInstruction*
-AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset)
+AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, AAAddress* offset)
 {
-    AAArch* Archs = AAArchs;
+    AAArch* Archs = (AAArch*) AAArchs;
     AAArch* Arch;
 
     while ((Arch = Archs++) != NULL) {
@@ -65,9 +65,9 @@ AA_ArchDispatchBytecodeToInstruction (const char* arch, AABytecode* bytecode, un
 }
 
 AABytecode*
-AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, unsigned int* offset)
+AA_ArchDispatchInstructionToBytecode (const char* arch, AAInstruction* instruction, AAAddress* offset)
 {
-    AAArch* Archs = AAArchs;
+    AAArch* Archs = (AAArch*) AAArchs;
     AAArch* Arch;
 
     while ((Arch = Archs++) != NULL) {

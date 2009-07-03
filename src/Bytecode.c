@@ -46,7 +46,7 @@ AA_NewBytecode (unsigned char* code, unsigned int length, AAArch* arch)
     AABytecode* result = (AABytecode*) malloc(sizeof(AABytecode));
     result->data       = code;
     result->length     = length;
-    result->arch       = (arch != NULL) ? arch : &AAArchs[AA_DEFAULT_ARCH];
+    result->arch       = (arch != NULL) ? arch : (AAArch*) &AAArchs[AA_DEFAULT_ARCH];
 
     return result;
 }

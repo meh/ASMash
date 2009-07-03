@@ -34,11 +34,12 @@
 #ifndef __ASMASH_ARCH_IA32_H
 #define __ASMASH_ARCH_IA32_H
 
+#include "types.h"
 #include "Instruction.h"
 #include "Bytecode.h"
 
-struct AAInstruction* AA_IA32_BytecodeToInstruction (struct AABytecode* bytecode, unsigned int* offset);
+struct AAInstruction* AA_IA32_BytecodeToInstruction (struct AABytecode* bytecode, AAAddress* offset);
 
-struct AABytecode* AA_IA32_InstructionToBytecode (struct AAInstruction* instructions, unsigned int* offset);
+struct AABytecode* AA_IA32_InstructionToBytecode (struct AAInstruction* instructions, AAAddress* offset);
 
 #endif

@@ -43,16 +43,16 @@
 typedef struct AAInstruction {
     char*                 name;
     unsigned int          opcode;
-    unsigned int          offset;
+    AAAddress             offset;
     AAInstructionOperand* source;
     AAInstructionOperand* dest;
 } AAInstruction;
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, unsigned int offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, AAAddress offset, AAInstructionOperand* source, AAInstructionOperand* dest);
 
 void AA_DestroyInstruction (AAInstruction* instruction);
 
-AAInstruction* AA_ParseInstruction (const char* arch, AABytecode* bytecode, unsigned int* offset);
+AAInstruction* AA_ParseInstruction (const char* arch, AABytecode* bytecode, AAAddress* offset);
 
 #define AA_GetInstructionName(instruction) (instruction->name)
 

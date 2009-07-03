@@ -67,7 +67,7 @@ AA_DestroyInstructionStream (AAInstructionStream* stream)
 AAInstruction*
 AA_NextStreamInstruction (AAInstructionStream* stream)
 {
-    unsigned int   offset;
+    AAAddress      offset;
     AABytecode*    wrapper;
     AAInstruction* result;
 
