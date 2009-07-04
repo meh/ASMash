@@ -3,7 +3,7 @@
  * file are part of ASMash, the library for disassembling/assembling
  * binary code.
  *
- * Copyright (C) 2009 BlackLight and meh.
+ * Copyright (C) 2009 meh. and BlackLight
  *
  * ASMash is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -377,6 +377,9 @@ const AAOpcodeValue aa_IA32_Opcodes_add[] = {
     { "\x01\xfd",     2, 1, AARegister32Operand, AARegister32Operand }, /* addb %edi, %ebp */
     { "\x01\xfe",     2, 1, AARegister32Operand, AARegister32Operand }, /* addb %edi, %esi */
     { "\x01\xff",     2, 1, AARegister32Operand, AARegister32Operand }, /* addb %edi, %edi */
+
+    /* addb (%reg32), reg8 */
+    
 
     /* addl $n, %eax */
     { "\x05", 1, 4, AARegister32Operand, AAScalarOperand },
