@@ -47,6 +47,11 @@ typedef enum {
     AAMemoryFromRegister32Operand,
     AAMemoryFromRegister64Operand,
 
+    AAMemoryOffsetFromRegister8Operand,
+    AAMemoryOffsetFromRegister16Operand,
+    AAMemoryOffsetFromRegister32Operand,
+    AAMemoryOffsetFromRegister64Operand,
+
     AAMemoryOperand,
 
     AAScalarOperand
