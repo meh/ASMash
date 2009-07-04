@@ -34,9 +34,19 @@
 #ifndef __ASMASH_ARCH_OPCODE_H
 #define __ASMASH_ARCH_OPCODE_H
 
+#include "InstructionOperand.h"
+
+typedef struct AAOpcodeValue {
+    char*                    value;
+    unsigned int             length;
+    unsigned int             dataLength;
+    AAInstructionOperandType source;
+    AAInstructionOperandType dest;
+} AAOpcodeValue;
+
 typedef struct AAOpcode {
-    char*               name;
-    unsigned long long* values;
+    char*           name;
+    AAOpcodeValue** values;
 } AAOpcode;
 
 #endif

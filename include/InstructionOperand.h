@@ -35,10 +35,21 @@
 #define __ASMASH_INSTRUCTIONOPERAND_H
 
 typedef enum {
-    AARegisterOperand,
+    AANoneOperand,
+
+    AARegister8Operand,
+    AARegister16Operand,
+    AARegister32Operand,
+    AARegister64Operand,
+
+    AAMemoryFromRegister8Operand,
+    AAMemoryFromRegister16Operand,
+    AAMemoryFromRegister32Operand,
+    AAMemoryFromRegister64Operand,
+
     AAMemoryOperand,
-    AAAddressOperand,
-    AAConstantOperand
+
+    AAScalarOperand
 } AAInstructionOperandType;
 
 #define AA_OPERAND_IS_REGISTER(operand) (operand->type == AARegisterOperand)
