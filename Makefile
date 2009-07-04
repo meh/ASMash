@@ -9,7 +9,8 @@ SRCDIR     = src
 INCLUDEDIR = include
 PREFIX     = /usr
 FILES      = ${SRCDIR}/Bytecode.o ${SRCDIR}/Instruction.o ${SRCDIR}/InstructionList.o ${SRCDIR}/InstructionStream.o \
-			 ${SRCDIR}/Arch/api.o ${SRCDIR}/Arch/IA32/api.o \
+			 ${SRCDIR}/Arch/api.o \
+			 	${SRCDIR}/Arch/IA32/api.o ${SRCDIR}/Arch/IA32/opcodes.o \
 			 ${SRCDIR}/Format/api.o ${SRCDIR}/Format/ELF/api.o
 
 ## ARCHS ##

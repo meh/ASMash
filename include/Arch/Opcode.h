@@ -49,4 +49,7 @@ typedef struct AAOpcode {
     AAOpcodeValue** values;
 } AAOpcode;
 
+#define AA_OPCODE_END { 0, 0 }
+#define AA_OPCODE_VALUE_END { 0, 0, 0, 0, 0 }
+
 #endif

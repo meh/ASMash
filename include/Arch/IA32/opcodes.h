@@ -35,85 +35,39 @@
 #define __ASMASH_ARCH_IA32_OPCODES_H
 
 #include "types.h"
-#include "Arch/Opcodes.h"
+#include "Arch/Opcode.h"
 
 typedef enum {
-    aaEAX = 0,
-    aaECX,
-    aaEDX,
-    aaEBX,
-    aaESP,
-    aaEBP,
-    aaESI,
-    aaEDI
-} AAInstructionRegisters32;
+    aa_IA32_EAX = 0,
+    aa_IA32_ECX,
+    aa_IA32_EDX,
+    aa_IA32_EBX,
+    aa_IA32_ESP,
+    aa_IA32_EBP,
+    aa_IA32_ESI,
+    aa_IA32_EDI
+} AA_IA32_InstructionRegisters32;
 
 typedef enum {
-    aaAX = 0,
-    aaCX,
-    aaDX,
-    aaBX,
-    aaSP,
-    aaBP,
-    aaSI,
-    aaDI
-} AAInstructionRegisters16;
+    aa_IA32_AX = 0,
+    aa_IA32_CX,
+    aa_IA32_DX,
+    aa_IA32_BX,
+    aa_IA32_SP,
+    aa_IA32_BP,
+    aa_IA32_SI,
+    aa_IA32_DI
+} AA_IA32_InstructionRegisters16;
 
 typedef enum {
-    aaAL = 0,
-    aaCL,
-    aaDL,
-    aaBL,
-    aaAH,
-    aaCH,
-    aaDH,
-    aaBH
-} AAInstructionRegisters8;
-
-static AAOpcode AA_IA32_Opcodes[] = {
-    { "mov", {
-        /* movl $scal, %reg */
-        { "\xb8", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %eax */
-        { "\xb9", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %ecx */
-        { "\xba", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %edx */
-        { "\xbb", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %ebx */
-        { "\xbc", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %esp */
-        { "\xbd", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %ebp */
-        { "\xbe", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %esi */
-        { "\xbf", 1, 4, AARegister32Operand, AAScalarOperand }, /* movl $n, %edi */
-
-        { "\x8b\x03", 2, AARegister32Operand, AAMemoryFromRegister32Operand },
-        { "\x8b\x04\x24", 3, AARegister32Operand, AAMemoryFromRegisterOperand },
-        { NULL }
-    } },
-
-    { "add", {
-        /* addl (%reg), %reg */
-        { "\x01\x00",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%eax) */
-        { "\x01\x01",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%ecx) */
-        { "\x01\x02",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%edx) */
-        { "\x01\x03",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%ebx) */
-        { "\x01\x04\x24", 3, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%esp) */
-        { "\x01\x05",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%ebp) */
-        { "\x01\x06",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%esi) */
-        { "\x01\x07",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %eax, (%edi) */
-        { "\x01\x08",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%eax) */
-        { "\x01\x09",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%ecx) */
-        { "\x01\x0a",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%edx) */
-        { "\x01\x0b",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%ebx) */
-        { "\x01\x0c\x24", 3, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%esp) */
-        { "\x01\x0d",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%ebp) */
-        { "\x01\x0e",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%esi) */
-        { "\x01\x0f",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %ecx, (%edi) */
-        { "\x01\x10",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%eax) */
-        { "\x01\x11",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%ecx) */
-        { "\x01\x12",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%edx) */
-        { "\x01\x13",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%ebx) */
-        { "\x01\x14\x24", 3, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%esp) */
-        { "\x01\x15",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%ebp) */
-        { "\x01\x16",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%esi) */
-        { "\x01\x17",     2, 0, AARegister32Operand, AAMemoryFromRegister32Operand }, /* addl %edx, (%edi) */
-    } },
-};
+    aa_IA32_AL = 0,
+    aa_IA32_CL,
+    aa_IA32_DL,
+    aa_IA32_BL,
+    aa_IA32_AH,
+    aa_IA32_CH,
+    aa_IA32_DH,
+    aa_IA32_BH
+} AA_IA32_InstructionRegisters8;
 
 #endif

@@ -32,6 +32,9 @@
  */
 
 #include "Arch/IA32/api.h"
+#include "Arch/IA32/opcodes.h"
+
+extern const AAOpcode AA_IA32_Opcodes[];
 
 #include <stdlib.h>
 
