@@ -511,6 +511,8 @@ const AAOpcodeValue aa_IA32_Opcodes_add[] = {
     { "\x02\x7f",     2, 1, AARegister8Operand, AAMemoryOffsetFromRegister32Operand }, /* addb n(%edi), %bh */
 
     /* addl $n, %eax */
+    { "\x04", 1, 1, AARegister8Operand, AAScalarOperand },
+    { "\x05", 1, 2, AARegister16Operand, AAScalarOperand },
     { "\x05", 1, 4, AARegister32Operand, AAScalarOperand },
 
     AA_OPCODE_VALUE_END
