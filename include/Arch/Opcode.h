@@ -37,7 +37,7 @@
 #include "InstructionOperand.h"
 
 typedef struct AAOpcodeValue {
-    char*                    value;
+    const char*              value;
     unsigned int             length;
     unsigned int             dataLength;
     AAInstructionOperandType source;
@@ -45,9 +45,11 @@ typedef struct AAOpcodeValue {
 } AAOpcodeValue;
 
 typedef struct AAOpcode {
-    char*           name;
-    AAOpcodeValue** values;
+    const char*          name;
+    const AAOpcodeValue* values;
 } AAOpcode;
+
+#define AA_NEW_OPCODE(name) { #name, aa_IA32_Opcodes_## name }
 
 #define AA_OPCODE_END { 0, 0 }
 #define AA_OPCODE_VALUE_END { 0, 0, 0, 0, 0 }
