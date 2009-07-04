@@ -3,7 +3,7 @@
  * file are part of ElfShark, the library for disassembling/assembling
  * binary code.
  *
- * Copyright (C) 2009 meh. and BlackLight [http://meh.doesntexist.org]
+ * Copyright (C) 2009 meh. and BlackLight
  *
  * ElfShark is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
