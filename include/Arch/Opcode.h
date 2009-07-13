@@ -36,22 +36,36 @@
 
 #include "InstructionOperand.h"
 
-typedef struct AAOpcodeValue {
+typedef struct AAOpcode {
+    const char*              name;
     const char*              value;
     unsigned int             length;
     unsigned int             dataLength;
     AAInstructionOperandType source;
+    int                      sourceData;
     AAInstructionOperandType dest;
-} AAOpcodeValue;
-
-typedef struct AAOpcode {
-    const char*          name;
-    const AAOpcodeValue* values;
+    int                      destData;
 } AAOpcode;
 
-#define AA_NEW_OPCODE(name) { #name, aa_IA32_Opcodes_## name }
+typedef struct AAOpcodeList {
+    const char*     name;
+    const AAOpcode* values;
+} AAOpcodeList;
 
-#define AA_OPCODE_END { 0, 0 }
-#define AA_OPCODE_VALUE_END { 0, 0, 0, 0, 0 }
+#define AA_OPCODES(arch, name) \
+    const char aa_##arch##_Opcodes_##name##_name[] = #name; \
+    const AAOpcode aa_##arch##_Opcodes_##name[]
+
+#define AA_OPCODES_END { 0, 0, 0, 0, 0 }
+
+#define AA_OPCODE_REGISTER(arch, name) aa_##arch##_##name
+
+#define AA_OPCODE(arch, name, bytecode, bytecodeLength, dataLength, source, dest) { aa_##arch##_Opcodes_##name##_name, bytecode, bytecodeLength, dataLength, source, dest }
+
+#define AA_OPCODE_OPERAND(operand, data) operand, data
+
+#define AA_NEW_OPCODELIST(arch, name) { aa_##arch##_Opcodes_##name##_name, aa_IA32_Opcodes_##name }
+
+#define AA_OPCODELIST_END { 0, 0 }
 
 #endif

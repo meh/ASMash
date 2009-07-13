@@ -36,19 +36,20 @@
 
 #include "Bytecode.h"
 #include "InstructionOperand.h"
+#include "Arch/Opcode.h"
 
 #define AA_INSTRUCTION_SOURCE 0x01
 #define AA_INSTRUCTION_DEST   0x02
 
 typedef struct AAInstruction {
-    char*                 name;
-    unsigned int          opcode;
+    const char*           name;
+    AAOpcode*             opcode;
     AAAddress             offset;
     AAInstructionOperand* source;
     AAInstructionOperand* dest;
 } AAInstruction;
 
-AAInstruction* AA_NewInstruction (const char* name, unsigned int opcode, AAAddress offset, AAInstructionOperand* source, AAInstructionOperand* dest);
+AAInstruction* AA_NewInstruction (const char* name, AAOpcode* opcode, AAAddress offset, AAInstructionOperand* source, AAInstructionOperand* dest);
 
 void AA_DestroyInstruction (AAInstruction* instruction);
 

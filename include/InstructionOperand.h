@@ -61,10 +61,10 @@ typedef enum {
 
 typedef struct AAInstructionOperand {
     AAInstructionOperandType type;
-    unsigned int             value;
+    int*                     data;
 } AAInstructionOperand;
 
-AAInstructionOperand* AA_NewInstructionOperand (AAInstructionOperandType type, unsigned int value);
+AAInstructionOperand* AA_NewInstructionOperand (AAInstructionOperandType type, int* data);
 
 void AA_DestroyInstructionOperand (AAInstructionOperand* operand);
 

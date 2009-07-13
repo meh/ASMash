@@ -39,6 +39,8 @@ typedef enum {
     AATrue  = 1
 } AABool;
 
+#define AANone 0
+
 typedef unsigned char AAOptions;
 
 typedef unsigned long long AAAddress;

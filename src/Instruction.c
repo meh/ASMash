@@ -39,7 +39,7 @@
 #include <string.h>
 
 AAInstruction*
-AA_NewInstruction (const char* name, unsigned int opcode, AAAddress offset, AAInstructionOperand* source, AAInstructionOperand* dest)
+AA_NewInstruction (const char* name, AAOpcode* opcode, AAAddress offset, AAInstructionOperand* source, AAInstructionOperand* dest)
 {
     AAInstruction* result;
 
@@ -60,8 +60,6 @@ AA_NewInstruction (const char* name, unsigned int opcode, AAAddress offset, AAIn
 void
 AA_DestroyInstruction (AAInstruction* instruction)
 {
-    free(instruction->name);
-
     if (instruction->source) {
         AA_DestroyInstructionOperand(instruction->source);
     }
