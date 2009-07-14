@@ -23,8 +23,8 @@ CFLAGS += -g3
 endif
 
 all: $(FILES)
-	${CC} ${LDFLAGS} -dynamiclib -shared -Wl,-soname,lib${LIB}.so.0 -o lib${LIB}.so.0.0.0 ${SRCDIR}/*.lo
-	ar rcs lib$(LIB).a ${SRCDIR}/*.lo
+	${CC} ${LDFLAGS} -dynamiclib -shared -Wl,-soname,lib${LIB}.so.0 -o lib${LIB}.so.0.0.0 $(FILES:.o=.lo)
+	ar rcs lib$(LIB).a $(FILES:.o=.lo)
 
 $(FILES): $(FILES:.o=.c)
 	${CC} ${CFLAGS} -DAA_DEFAULT_ARCH='${ARCH}' -I./include/ -I./src/ -fPIC -c $*.c -o $*.lo
