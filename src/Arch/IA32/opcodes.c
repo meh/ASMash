@@ -2343,6 +2343,118 @@ AA_OPCODES(IA32, add) = {
         AA_OPCODE_OPERAND(AAMemoryOffsetFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EDI)),
         AA_OPCODE_OPERAND(AARegister8Operand, AA_OPCODE_REGISTER(IA32, BH))),
 
+    /* addl (%reg32), %reg32 */
+
+    /* addl (%eax), %eax */
+    AA_OPCODE(IA32, add, "\x03\x00", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EAX))),
+
+    /* addl (%eax), %ecx */
+    AA_OPCODE(IA32, add, "\x03\x01", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ECX))),
+
+    /* addl (%eax), %edx */
+    AA_OPCODE(IA32, add, "\x03\x02", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EDX))),
+
+    /* addl (%eax), %ebx */
+    AA_OPCODE(IA32, add, "\x03\x03", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EBX))),
+
+    /* addl (%eax), %esp */
+    AA_OPCODE(IA32, add, "\x03\x04", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ESP))),
+
+    /* addl (%eax), %ebp */
+    AA_OPCODE(IA32, add, "\x03\x05", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EBP))),
+
+    /* addl (%eax), %esi */
+    AA_OPCODE(IA32, add, "\x03\x06", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ESI))),
+
+    /* addl (%eax), %edi */
+    AA_OPCODE(IA32, add, "\x03\x07", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EDI))),
+
+    /* addl (%ecx), %eax */
+    AA_OPCODE(IA32, add, "\x03\x08", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EAX))),
+
+    /* addl (%ecx), %eax */
+    AA_OPCODE(IA32, add, "\x03\x09", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EAX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EAX))),
+
+    /* addl (%ecx), %ecx */
+    AA_OPCODE(IA32, add, "\x03\x0a", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ECX))),
+
+    /* addl (%ecx), %edx */
+    AA_OPCODE(IA32, add, "\x03\x0b", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EDX))),
+
+    /* addl (%ecx), %ebx */
+    AA_OPCODE(IA32, add, "\x03\x0c", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EBX))),
+
+    /* addl (%ecx), %esp */
+    AA_OPCODE(IA32, add, "\x03\x0d", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ESP))),
+
+    /* addl (%ecx), %ebp */
+    AA_OPCODE(IA32, add, "\x03\x0e", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EBP))),
+
+    /* addl (%ecx), %esi */
+    AA_OPCODE(IA32, add, "\x03\x0f", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ESI))),
+
+    /* addl (%ecx), %edi */
+    AA_OPCODE(IA32, add, "\x03\x10", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, ECX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EDI))),
+
+    /* addl (%edx), %eax */
+    AA_OPCODE(IA32, add, "\x03\x11", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EDX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EAX))),
+
+    /* addl (%edx), %ecx */
+    AA_OPCODE(IA32, add, "\x03\x12", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EDX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ECX))),
+
+    /* addl (%edx), %edx */
+    AA_OPCODE(IA32, add, "\x03\x13", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EDX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EDX))),
+
+    /* addl (%edx), %ebx */
+    AA_OPCODE(IA32, add, "\x03\x14", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EDX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, EBX))),
+
+    /* addl (%edx), %esp */
+    AA_OPCODE(IA32, add, "\x03\x15", 2, 0,
+        AA_OPCODE_OPERAND(AAMemoryFromRegister32Operand, AA_OPCODE_REGISTER(IA32, EDX)),
+        AA_OPCODE_OPERAND(AARegister32Operand, AA_OPCODE_REGISTER(IA32, ESP))),
+
     /* %*a* shortcuts */
 
     /* addb $n, %al */
